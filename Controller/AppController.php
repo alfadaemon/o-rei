@@ -34,6 +34,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller 
 {
 	public $components = array('Auth','Session','Error', 'DebugKit.Toolbar');
+	public $use = array('Tournament');
 
 	public function beforeFilter()
 	{
@@ -43,8 +44,14 @@ class AppController extends Controller
 		$this->Auth->logoutRedirect = array('action' => 'home', 'controller' => 'pages');
 		$this->Auth->authError = 'You are not allowed to see that.';
 
-		# To enable portuguese language as main
+		# To enable spanish language as main
 		Configure::write('Config.language', 'spa');
+
+		if( AuthComponent::user('id') ) {
+			$this->loadModel('Tournament');
+			$tournaments = $this->Tournament->find('list');
+			$this->set(compact('tournaments'));
+		}
 	}	
 }
 

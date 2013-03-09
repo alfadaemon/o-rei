@@ -171,10 +171,11 @@ Configure::write(
 *	-> spruce
 *	-> superhero
 *	-> united
+*	-> shamrock
 */
 Configure::write(
 	'Layout', array(
-		'theme' => 'amelia'
+		'theme' => 'shamrock'
 	)
 );
 
