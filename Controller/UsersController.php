@@ -10,8 +10,6 @@ class UsersController extends AppController
 
   public function home()
   {
-    $this->User->recursive = 0;
-    $this->set('users', $this->paginate());
   }
 
   public function login() 

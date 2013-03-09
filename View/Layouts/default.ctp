@@ -52,23 +52,46 @@
                     <ul class="nav">
                       <?php if( AuthComponent::user('id') ) { ?>
                       <li class="<?php echo $this->params->controller == 'users' && $this->action == 'home' ? 'active' : '';  ?>">
-                        <?php echo $this->Html->link('Home',array('controller' => 'users','action' => 'home')) ?>
+                        <?php echo $this->Html->link(__('Home'),array('controller' => 'users','action' => 'home')) ?>
+                      </li>
+                      <li class="<?php echo $this->params->controller == 'user_teams' && $this->action == 'index' ? 'active' : '';  ?>">
+                        <?php echo $this->Html->link(__('My Teams'),array('controller' => 'user_teams','action' => 'index')) ?>
+                      </li>
+                      <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'index' ? 'active' : '';  ?>">
+                        <?php echo $this->Html->link(__('Global Scores'),array('controller' => 'schedules','action' => 'index')) ?>
+                      </li>
+                      <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'next' ? 'active' : '';  ?>">
+                        <?php echo $this->Html->link(__('Next Games'),array('controller' => 'schedules','action' => 'next')) ?>
                       </li>
                       <?php } ?>
+                      <?php if( !AuthComponent::user('id') ) { ?>
                       <li class="<?php echo $this->action == 'register' ? 'active' : ''; ?>">
                         <?php echo $this->Html->link(__('Register'),array('controller' => 'users','action' => 'register')) ?>
                       </li>
-
-                      
+                      <?php } ?>
                     </ul>
 
                     <?php if( AuthComponent::user('id') ) { ?>
                     <ul class="nav pull-right">
+                      <li style="margin-top:5px">
+						<?php 
+							echo $this->Form->input('tournament_id', array('empty'=>true, 'class' => 'input-mini span3', 'div'=>false, 'label'=>false));
+						?>
+                      </li>
                       <li id="fat-menu" class="dropdown">
                         <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
                           <i class="icon-black icon-user"></i> 
                           <?php echo AuthComponent::user('username') ?> <b class="caret"></b></a>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                            <li>
+                              <?php echo $this->Html->link(
+                                '<i class="icon-black icon-cog"></i> Profile','/users/edit/'.AuthComponent::user('id'),
+                                array(
+                                  'tabindex' => '-1',
+                                  'escape' => false
+                                  )
+                                  ) ?>
+                             </li>
                             <li>
                               <?php echo $this->Html->link(
                                 '<i class="icon-black icon-off"></i> Logout','/users/logout',
@@ -77,11 +100,11 @@
                                   'escape' => false
                                   )
                                   ) ?>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>   
-                          <?php } ?>
+                             </li>
+                           </ul>
+                      </li>
+                    </ul>   
+                    <?php } ?>
 
                         </div><!--/.nav-collapse -->
                       </div>
@@ -122,10 +145,10 @@
 
                       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
                       <script>
-                      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+                      /*var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
                       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
                         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-                        s.parentNode.insertBefore(g,s)}(document,'script'));
+                        s.parentNode.insertBefore(g,s)}(document,'script'));*/
                       </script>
                     </body>
                     </html>

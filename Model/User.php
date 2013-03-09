@@ -4,6 +4,12 @@ App::uses('AuthComponent', 'Controller/Component');
 class User extends AppModel
 {
   public $name = 'User';
+/**
+ * Display field
+ *
+ * @var string
+ */
+  public $displayField = 'username';
   
   public function beforeSave($options = array()) 
   {
@@ -44,7 +50,7 @@ class User extends AppModel
       ),
     'role' => array(
       'valid' => array(
-        'rule' => array('inList', array('admin', 'author')),
+        'rule' => array('inList', array('admin', 'user', 'dataentry')),
         'message' => 'Please enter a valid role',
         'allowEmpty' => false
         )
