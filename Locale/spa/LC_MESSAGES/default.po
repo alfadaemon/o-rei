@@ -185,3 +185,52 @@ msgstr "Error interno."
 #: webroot/test.php:87
 msgid "Debug setting does not allow access to this url."
 msgstr "La configuración del Debug no permite acceder a este url."
+
+#: Page locales
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "New Team"
+msgstr "Nuevo Equipo"
+
+msgid "Team"
+msgstr "Equipo"
+
+msgid "Teams"
+msgstr "Equipos"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Tournament"
+msgstr "Torneo"
+
+msgid "Tournaments"
+msgstr "Torneos"
+
+msgid "League"
+msgstr "Liga"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "My Teams"
+msgstr "Mis Equipos"
+
+msgid "Global Scores"
+msgstr "Resultados"
+
+msgid "Next Games"
+msgstr "Próximos Juegos"

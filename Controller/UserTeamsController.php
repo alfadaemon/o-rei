@@ -44,6 +44,7 @@ class UserTeamsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->UserTeam->create();
+			$this->request->data['UserTeam']['user_id']=AuthComponent::user('id');
 			if ($this->UserTeam->save($this->request->data)) {
 				$this->Session->setFlash(__('The user team has been saved'), 'flash/success');
 				$this->redirect(array('action' => 'index'));
@@ -52,8 +53,8 @@ class UserTeamsController extends AppController {
 			}
 		}
 		$users = $this->UserTeam->User->find('list');
-		$tournaments = $this->UserTeam->Tournament->find('list');
-		$this->set(compact('users', 'tournaments'));
+		//$tournaments = $this->UserTeam->Tournament->find('list');
+		$this->set(compact('users'));//), 'tournaments'));
 	}
 
 /**

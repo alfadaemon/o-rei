@@ -49,7 +49,8 @@ class AppController extends Controller
 
 		if( AuthComponent::user('id') ) {
 			$this->loadModel('Tournament');
-			$tournaments = $this->Tournament->find('list');
+			$conditions = array('Tournament.active'=>1);
+			$tournaments = $this->Tournament->find('list', array('conditions'=>$conditions));
 			$this->set(compact('tournaments'));
 		}
 	}	

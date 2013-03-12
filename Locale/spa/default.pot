@@ -24,7 +24,7 @@ msgstr "Usuario inválido"
 
 #: Controller/UsersController.php:60;92
 msgid "The user has been saved"
-msgstr "Usuario se guardo exitosamente"
+msgstr "Usuario se guardó exitosamente"
 
 #: Controller/UsersController.php:97
 msgid "The user could not be saved. Please, try again."
@@ -95,7 +95,7 @@ msgstr "Editar"
 
 #: View/Users/home.ctp:28
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Borrar"
 
 #: Model/User.php:validation for field username
 msgid "A username is required."
@@ -129,4 +129,32 @@ msgstr "A ocurrido un error interno."
 #: webroot/test.php:87
 msgid "Debug setting does not allow access to this url."
 msgstr "La configuración del Debug no permite acceder a éste url."
+
+#: Page locales
+msgid "Team"
+msgstr "Equipo"
+
+msgid "Teams"
+msgstr "Equipos"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Tournament"
+msgstr "Torneos"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "My Teams"
+msgstr "Mis Equipos"
+
+msgid "Global Scores"
+msgstr "Marcadores"
+
+msgid "Next Games"
+msgstr "Próximos Juegos"
 
