@@ -29,7 +29,7 @@
 	
 	<div id="page-content" class="span9">
 
-		<div class="userTeams index">
+		<div class="userTeams index well">
 		
 			<h2><?php echo __('Teams'); ?></h2>
 			
