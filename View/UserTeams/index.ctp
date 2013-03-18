@@ -6,7 +6,21 @@
 		<div class="actions">
 		
 			<ul class="nav nav-list bs-docs-sidenav">
-				<li><?php echo $this->Html->link(__('New Team'), array('action' => 'add'), array('class' => '')); ?></li>						
+				<li>
+					<?php echo $this->Html->link(
+							__('New Team'),
+							'#UserTeamsModal',
+							array(
+								'class'	=> 'btn-remove-modal',
+								'data-toggle' => 'modal',
+								'role'	=> 'button',
+								'data-user_id' => $user['User']['id'],
+								'data-uname' => $user['User']['username']
+							));
+						?>
+				</li>
+				
+				
 			</ul><!-- .nav nav-list bs-docs-sidenav -->
 			
 		</div><!-- .actions -->
@@ -15,9 +29,9 @@
 	
 	<div id="page-content" class="span9">
 
-		<div class="userTeams index">
+		<div class="userTeams index well">
 		
-			<h2><?php echo __('User Teams'); ?></h2>
+			<h2><?php echo __('Teams'); ?></h2>
 			
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
@@ -34,8 +48,8 @@
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $userTeam['UserTeam']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete %s?', $userTeam['UserTeam']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -64,3 +78,29 @@
 
 </div><!-- #page-container .row-fluid -->
 
+<div class="modal hide" id="UserTeamsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel"><?php echo __('Add Team') ?></h3>
+	</div>
+	<div class="modal-body">
+		<div class="userTeams form">
+		
+		<?php echo $this->Form->create('UserTeam', array('controller'=>'UserTeams', 'action'=>'add')); ?>
+		<fieldset>
+		<?php
+			echo "<div class='control-group'>";
+			echo $this->Form->input('name', array('class' => 'span3'));
+			echo "<div class='control-group'>";
+			echo $this->Form->input('tournament_id', array('class' => 'span3'));
+			echo "</div>";
+		?>
+		</fieldset>
+			<?php echo $this->Form->submit('Submit', array('class' => 'btn btn-medium btn-primary')); ?>
+			<?php echo $this->Form->end(); ?>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo __('Cancel') ?></button>
+	</div>
+</div>

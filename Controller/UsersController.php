@@ -10,6 +10,8 @@ class UsersController extends AppController
 
   public function home()
   {
+  	//TODO: show the tournament's players with higher scores (real players).
+  	//		and the users with higher scores of each tournament.
   }
 
   public function login() 
