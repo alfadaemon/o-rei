@@ -15,7 +15,7 @@ class UserTeamsController extends AppController {
 	public function index() {
 		$this->UserTeam->recursive = 0;
 		$this->paginate = array(
-	        'conditions' => array('UserTeam.user_id' => AuthComponent::user('id'))
+	        'conditions' => array('Tournament.active'=>TRUE, 'UserTeam.user_id' => AuthComponent::user('id'))
     	);
     	$userTeams = $this->paginate('UserTeam');
     	$this->set(compact('userTeams'));
@@ -47,7 +47,11 @@ class UserTeamsController extends AppController {
 			$this->request->data['UserTeam']['user_id']=AuthComponent::user('id');
 			if ($this->UserTeam->save($this->request->data)) {
 				$this->Session->setFlash(__('The user team has been saved'), 'flash/success');
-				$this->redirect(array('action' => 'index'));
+				
+				$conditions = array('UserTeam.user_id' => AuthComponent::user('id'));
+				$teams = $this->UserTeam->find('list', array('conditions'=>$conditions));
+				$this->set(compact('teams'));
+				$this->redirect(array('controller'=>'UserPlayers', 'action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The user team could not be saved. Please, try again.'), 'flash/error');
 			}

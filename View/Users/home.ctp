@@ -7,25 +7,39 @@
 </div>
 
 <div class="row-fluid">
-	<div class="span6 well">
-		<h2><?php echo __('Players').' - '.__('Top 10'); ?></h2>
+	<div class="span4 well">
+		<h2><?php echo __('My Teams'); ?></h2>
 		<hr>
 		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 			<tr>
 				<th><?php echo $this->Paginator->sort('name'); ?></th>
 				<th><?php echo $this->Paginator->sort('team'); ?></th>
-				<th><?php echo $this->Paginator->sort('position_id'); ?></th>
 				<th><?php echo $this->Paginator->sort('score'); ?></th>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+	<div class="span4 well">
+		<h2><?php echo __('Players').' - '.__('Top 10'); ?></h2>
+		<hr>
+		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
+			<tr>
+				<th><?php echo $this->Paginator->sort('name'); ?></th>
+				<th><?php echo $this->Paginator->sort('team'); ?></th>
+				<th><?php echo $this->Paginator->sort('score'); ?></th>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>
 	</div>
-	<div class="span6 well">
+	<div class="span4 well">
 		<h2><?php echo __('Users').' - '.__('Top 10'); ?></h2>
 		<hr>
 		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
