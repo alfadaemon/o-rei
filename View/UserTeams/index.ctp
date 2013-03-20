@@ -47,7 +47,7 @@
 			<?php echo $this->Html->link($userTeam['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $userTeam['Tournament']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php echo $this->Html->link(__('View'), array('controller'=>'UserPlayers', 'action' => 'index', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete %s?', $userTeam['UserTeam']['name'])); ?>
 		</td>
