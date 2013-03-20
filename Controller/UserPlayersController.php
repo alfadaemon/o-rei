@@ -12,9 +12,20 @@ class UserPlayersController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function index($userTeamId = 0) {
 		$this->UserPlayer->recursive = 0;
+		$conditions = array('user_team_id'=> $userTeamId);
+		$this->paginate = array(
+	        'conditions' => $conditions
+    	);
 		$this->set('userPlayers', $this->paginate());
+		$userTeams = $this->UserPlayer->UserTeam->findById($userTeamId);
+		
+		$this->loadModel('TeamTournament');
+		$this->TeamTournament->recursive = -1;
+		$Teams=$this->TeamTournament->findAllByTournamentId($userTeams['Tournament']['id']);
+		
+		$this->set(compact('userTeams', 'Teams'));
 	}
 
 /**

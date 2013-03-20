@@ -40,9 +40,13 @@ class PlayerRecordsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->PlayerRecord->create();
+			$this->loadModel('Player');
+			$this->Player->recursive = -1;
+			$playerName = $this->Player->findById($this->request->data['PlayerRecord']['player_id']);
+			$this->request->data['PlayerRecord']['name']=$playerName['Player']['nickname'];
 			if ($this->PlayerRecord->save($this->request->data)) {
 				$this->Session->setFlash(__('The player record has been saved'), 'flash/success');
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'add'));
 			} else {
 				$this->Session->setFlash(__('The player record could not be saved. Please, try again.'), 'flash/error');
 			}

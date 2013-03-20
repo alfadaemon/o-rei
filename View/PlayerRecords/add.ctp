@@ -31,9 +31,9 @@
 				<fieldset>
 					<h2><?php echo __('Add Player Record'); ?></h2>
 				<?php
-		echo "<div class='control-group'>";
-		echo $this->Form->input('name', array('class' => 'span12'));
-		echo "</div>";
+		//echo "<div class='control-group'>";
+		//echo $this->Form->input('name', array('class' => 'span12'));
+		//echo "</div>";
 		echo "<div class='control-group'>";
 		echo $this->Form->input('player_id', array('class' => 'span12'));
 		echo "</div>";

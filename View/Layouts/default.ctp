@@ -73,11 +73,13 @@
 
                     <?php if( AuthComponent::user('id') ) { ?>
                     <ul class="nav pull-right">
+                      <?php if( $this->params->controller == 'user_teams' && $this->action == 'index' ) { ?>
                       <li style="margin-top:5px">
 						<?php 
 							echo $this->Form->input('tournament_id', array('empty'=>true, 'class' => 'input-mini span3', 'div'=>false, 'label'=>false));
 						?>
                       </li>
+                      <?php } ?>
                       <li id="fat-menu" class="dropdown">
                         <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
                           <i class="icon-white icon-user"></i> 

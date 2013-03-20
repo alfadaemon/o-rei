@@ -39,7 +39,14 @@
 		echo $this->Form->input('slastname', array('class' => 'span12'));
 		echo "</div>";
 		echo "<div class='control-group'>";
-		echo $this->Form->input('birthdate', array('class' => 'span12'));
+		echo $this->Form->input('birthdate', array(
+    				'dateFormat' => 'DMY',
+    				'minYear' => date('Y') - 50,
+    				'maxYear' => date('Y') - 12,
+    				'class' => 'span2',
+					));
+
+		
 		echo "</div>";
 		echo "<div class='control-group'>";
 		echo $this->Form->input('country', array('class' => 'span12'));
