@@ -32,11 +32,14 @@
 				<th><?php echo $this->Paginator->sort('team'); ?></th>
 				<th><?php echo $this->Paginator->sort('score'); ?></th>
 			</tr>
+			<?php
+			 foreach ($topTenPlayers as $player):?>
 			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+				<td><?php echo $player['Players']["firstname"]." '".$player['Players']["nickname"]."' ".$player['Players']["flastname"]; ?></td>
+				<td><?php echo $player['Teams']["name"]; ?></td>
+				<td><?php echo $player['0']["points"]; ?></td>
 			</tr>
+			<?php endforeach; ?>
 		</table>
 	</div>
 	<div class="span4 well">
@@ -49,12 +52,15 @@
 				<th><?php echo $this->Paginator->sort('tournament'); ?></th>
 				<th><?php echo $this->Paginator->sort('score'); ?></th>
 			</tr>
+			<?php
+			 foreach ($topTenUsers as $user):?>
 			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+				<td><?php echo $player['Users']["username"]; ?></td>
+				<td><?php echo $player['UserTeams']["name"]; ?></td>
+				<td><?php echo $player['Tournament']["name"]; ?></td>
+				<td><?php echo $player['0']["points"]; ?></td>
 			</tr>
+			<?php endforeach; ?>
 		</table>
 	</div>
 </div>

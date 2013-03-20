@@ -1,7 +1,7 @@
 <?php 
 class UsersController extends AppController
 {
-	var $uses = array('PlayerRecords','PlayerStatistics','Players');
+	var $uses = array('PlayerRecords','PlayerStatistics','Players','Users');
 	
   public function beforeFilter()
   {
@@ -13,27 +13,92 @@ class UsersController extends AppController
   {
   	//TODO: show the tournament's players with higher scores (real players).
   	//		and the users with higher scores of each tournament.
+  	
+  	//Top 10 Players Query
   	$options['joins'] = array(
     array('table' => 'player_records',
         'alias' => 'PlayerRecords',
         'type' => 'INNER',
         'conditions' => array(
-            'PlayerRecords.player_id = Players.id',
+            'Players.id = PlayerRecords.player_id',
+	        )
+	    ),
+	    array('table' => 'team_tournaments',
+        'alias' => 'TeamTournaments',
+        'type' => 'INNER',
+        'conditions' => array(
+            'TeamTournaments.id = PlayerRecords.team_tournament_id',
+	        )
+	    ),
+	    array('table' => 'teams',
+        'alias' => 'Teams',
+        'type' => 'INNER',
+        'conditions' => array(
+            'Teams.id = TeamTournaments.team_id',
 	        )
 	    ),
 		array('table' => 'player_statistics',
         'alias' => 'PlayerStatistics',
         'type' => 'INNER',
         'conditions' => array(
-            'PlayerStatistics.player_record_id = PlayerRecords.id',
+            'PlayerRecords.id = PlayerStatistics.player_record_id',
 	        )
 	    )
+		
 	);
 	
-	$options['fields'] = array('Players.nickname','Players.firstname','Players.flastname','SUM(PlayerStatistics.points) as points');
+	$options['fields'] = array('Players.nickname','Players.firstname','Players.flastname','Teams.name','SUM(PlayerStatistics.points) as points');
 
 	$options['conditions'] = array('PlayerRecords.active'=>1);
-	$this->Players->find('all', $options);	
+	$options['order'] = array('points DESC');
+	$options['group'] = array('Players.id');
+	$options['limit'] = 10;
+	$this->set('topTenPlayers',$this->Players->find('all', $options));
+		
+	//End Top 10 Players Query
+	
+	//Top 10 Users Query
+  	$options['joins'] = array(
+    array('table' => 'user_teams',
+        'alias' => 'UserTeams',
+        'type' => 'INNER',
+        'conditions' => array(
+            'Users.id = UserTeams.user_id',
+	        )
+	    ),
+	    array('table' => 'user_players',
+        'alias' => 'UserPlayers',
+        'type' => 'INNER',
+        'conditions' => array(
+            'UserTeams.id = UserPlayers.user_team_id',
+	        )
+	    ),
+	     array('table' => 'tournaments',
+        'alias' => 'Tournaments',
+        'type' => 'INNER',
+        'conditions' => array(
+            'UserTeams.tournament_id = Tournaments.id',
+	        )
+	    )/*,
+		array('table' => 'player_statistics',
+        'alias' => 'PlayerStatistics',
+        'type' => 'INNER',
+        'conditions' => array(
+            'PlayerRecords.id = PlayerStatistics.player_record_id',
+	        )
+	    ) */
+		
+	);
+	
+	$options['fields'] = array('Users.username','UserTeams.name','Tournaments.name','SUM(UserPlayers.points) as points');
+
+	$options['conditions'] = array('Tournaments.active'=>1);
+	$options['order'] = array('points DESC');
+	$options['group'] = array('UserTeams.id');
+	$options['limit'] = 10;
+	$this->set('topTenUsers',$this->Users->find('all', $options));
+		
+	//End Top 10 Users Query
   }
 
   
