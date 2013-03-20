@@ -1,6 +1,7 @@
 <?php 
 class UsersController extends AppController
 {
+	var $uses = array('PlayerRecords','PlayerStatistics','Players');
 	
   public function beforeFilter()
   {
@@ -12,7 +13,31 @@ class UsersController extends AppController
   {
   	//TODO: show the tournament's players with higher scores (real players).
   	//		and the users with higher scores of each tournament.
+  	$options['joins'] = array(
+    array('table' => 'player_records',
+        'alias' => 'PlayerRecords',
+        'type' => 'INNER',
+        'conditions' => array(
+            'PlayerRecords.player_id = Players.id',
+	        )
+	    ),
+		array('table' => 'player_statistics',
+        'alias' => 'PlayerStatistics',
+        'type' => 'INNER',
+        'conditions' => array(
+            'PlayerStatistics.player_record_id = PlayerRecords.id',
+	        )
+	    )
+	);
+	
+	$options['fields'] = array('Players.nickname','Players.firstname','Players.flastname','SUM(PlayerStatistics.points) as points');
+
+	$options['conditions'] = array('PlayerRecords.active'=>1);
+	$this->Players->find('all', $options);	
   }
+
+  
+
 
   public function login() 
   {
