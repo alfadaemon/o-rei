@@ -49,9 +49,11 @@ class UserTeamsController extends AppController {
 				$this->Session->setFlash(__('The user team has been saved'), 'flash/success');
 				
 				$conditions = array('UserTeam.user_id' => AuthComponent::user('id'));
-				$teams = $this->UserTeam->find('list', array('conditions'=>$conditions));
-				$this->set(compact('teams'));
-				$this->redirect(array('controller'=>'UserPlayers', 'action' => 'index'));
+				//$teams = $this->UserTeam->find('list', array('conditions'=>$conditions));
+				//$this->set(compact('teams'));
+				$this->redirect(array('controller'=>'UserPlayers', 
+										'action' => 'index', 
+										$this->UserTeam->id));
 			} else {
 				$this->Session->setFlash(__('The user team could not be saved. Please, try again.'), 'flash/error');
 			}

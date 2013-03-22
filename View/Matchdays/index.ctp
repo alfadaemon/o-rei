@@ -27,20 +27,20 @@
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
 											<th><?php echo $this->Paginator->sort('id'); ?></th>
+											<th><?php echo $this->Paginator->sort('name'); ?></th>
 											<th><?php echo $this->Paginator->sort('local_score'); ?></th>
 											<th><?php echo $this->Paginator->sort('visit_score'); ?></th>
 											<th><?php echo $this->Paginator->sort('matchdate'); ?></th>
 											<th><?php echo $this->Paginator->sort('location'); ?></th>
 											<th><?php echo $this->Paginator->sort('comment'); ?></th>
 											<th><?php echo $this->Paginator->sort('tournament_id'); ?></th>
-											<th><?php echo $this->Paginator->sort('local_team_id'); ?></th>
-											<th><?php echo $this->Paginator->sort('visit_team_id'); ?></th>
 											<th class="actions"><?php echo __('Actions'); ?></th>
 				</tr>
 				<?php
 				foreach ($matchdays as $matchday): ?>
 	<tr>
 		<td><?php echo h($matchday['Matchday']['id']); ?>&nbsp;</td>
+		<td><?php echo h($matchday['Matchday']['name']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['local_score']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['visit_score']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['matchdate']); ?>&nbsp;</td>
@@ -49,8 +49,6 @@
 		<td>
 			<?php echo $this->Html->link($matchday['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $matchday['Tournament']['id'])); ?>
 		</td>
-		<td><?php echo h($matchday['Matchday']['local_team_id']); ?>&nbsp;</td>
-		<td><?php echo h($matchday['Matchday']['visit_team_id']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>

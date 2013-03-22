@@ -39,10 +39,22 @@ class MatchdaysController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			
+			//TODO: Validate that the teams are not the same
+			
+			//Get the teams' name for the Matchday name field
+			$this->loadModel('Team');
+			$this->Team->recursive = -1;
+			$conditions = array('id'=>$this->request->data['Matchday']['local_team_id']);
+			$localTeam = $this->Team->find('first', array('conditions'=>$conditions));
+			$conditions = array('id'=>$this->request->data['Matchday']['visit_team_id']);
+			$visitTeam = $this->Team->find('first', array('conditions'=>$conditions));
+			
+			$this->request->data['Matchday']['name']=$localTeam['Team']['name'].' vs '.$visitTeam['Team']['name'];
 			$this->Matchday->create();
 			if ($this->Matchday->save($this->request->data)) {
 				$this->Session->setFlash(__('The matchday has been saved'), 'flash/success');
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'add'));
 			} else {
 				$this->Session->setFlash(__('The matchday could not be saved. Please, try again.'), 'flash/error');
 			}

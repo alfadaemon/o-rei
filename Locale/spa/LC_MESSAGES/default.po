@@ -234,3 +234,18 @@ msgstr "Resultados"
 
 msgid "Next Games"
 msgstr "Próximos Juegos"
+
+msgid "Player"
+msgstr "Jugador"
+
+msgid "Players"
+msgstr "Jugadores"
+
+msgid "Team"
+msgstr "Equipo"
+
+msgid "Teams"
+msgstr "Equipos"
+
+msgid "Users"
+msgstr "Usuarios"
