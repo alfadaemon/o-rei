@@ -1,7 +1,7 @@
 <?php 
 class UsersController extends AppController
 {
-	var $uses = array('PlayerRecords','PlayerStatistics','Players','Users');
+	//var $uses = array('PlayerRecords','PlayerStatistics','Players','Users');
 	
   public function beforeFilter()
   {
@@ -20,7 +20,7 @@ class UsersController extends AppController
         'alias' => 'PlayerRecords',
         'type' => 'INNER',
         'conditions' => array(
-            'Players.id = PlayerRecords.player_id',
+            'Player.id = PlayerRecords.player_id',
 	        )
 	    ),
 	    array('table' => 'team_tournaments',
@@ -47,13 +47,14 @@ class UsersController extends AppController
 		
 	);
 	
-	$options['fields'] = array('Players.nickname','Players.firstname','Players.flastname','Teams.name','SUM(PlayerStatistics.points) as points');
+	$options['fields'] = array('Player.nickname','Player.firstname','Player.flastname','Teams.name','SUM(PlayerStatistics.points) as points');
 
 	$options['conditions'] = array('PlayerRecords.active'=>1);
 	$options['order'] = array('points DESC');
-	$options['group'] = array('Players.id');
+	$options['group'] = array('Player.id');
 	$options['limit'] = 10;
-	$this->set('topTenPlayers',$this->Players->find('all', $options));
+	$this->loadModel('Player');
+	$this->set('topTenPlayers',$this->Player->find('all', $options));
 		
 	//End Top 10 Players Query
 	
@@ -63,7 +64,7 @@ class UsersController extends AppController
         'alias' => 'UserTeams',
         'type' => 'INNER',
         'conditions' => array(
-            'Users.id = UserTeams.user_id',
+            'User.id = UserTeams.user_id',
 	        )
 	    ),
 	    array('table' => 'user_players',
@@ -90,13 +91,13 @@ class UsersController extends AppController
 		
 	);
 	
-	$options['fields'] = array('Users.username','UserTeams.name','Tournaments.name','SUM(UserPlayers.points) as points');
+	$options['fields'] = array('User.username','UserTeams.name','Tournaments.name','SUM(UserPlayers.points) as points');
 
 	$options['conditions'] = array('Tournaments.active'=>1);
 	$options['order'] = array('points DESC');
 	$options['group'] = array('UserTeams.id');
 	$options['limit'] = 10;
-	$this->set('topTenUsers',$this->Users->find('all', $options));
+	$this->set('topTenUsers',$this->User->find('all', $options));
 		
 	//End Top 10 Users Query
   }
