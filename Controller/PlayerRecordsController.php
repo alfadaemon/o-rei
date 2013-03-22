@@ -51,7 +51,7 @@ class PlayerRecordsController extends AppController {
 				$this->Session->setFlash(__('The player record could not be saved. Please, try again.'), 'flash/error');
 			}
 		}
-		$players = $this->PlayerRecord->Player->find('list');
+		$players = $this->PlayerRecord->Player->find('list', array('order'=>'nickname ASC'));
 		$teamTournaments = $this->PlayerRecord->TeamTournament->find('list');
 		$positions = $this->PlayerRecord->Position->find('list');
 		$this->set(compact('players', 'teamTournaments', 'positions'));

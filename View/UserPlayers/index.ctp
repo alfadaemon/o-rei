@@ -2,17 +2,19 @@
 <div id="page-container" class="row-fluid">
 	<div id="sidebar" class="span3 well">
 		<div class="actions">
-					<h5><?php echo $userTeams['Tournament']['name']; ?></h5>
-		</div><!-- .actions -->
-		<div class="btn-group" data-toggle="buttons-radio">
-			<?php foreach($Teams as $team): ?>
-				<br /><button type="button" class="btn btn-primary" data-toggle="button"><?= $team['TeamTournament']['name']; ?></button>
-			<?php endforeach; ?>
+			<h5><?php echo $userTeams['Tournament']['name']; ?></h5>
+			<ul class="nav nav-list bs-docs-sidenav">
+				<?php foreach($Teams as $team): ?>
+				<li>
+					<?php echo $this->Html->link($team['TeamTournament']['name'], array('controller' => 'player_records', 'action' => 'add')); ?> 
+				</li>
+				<?php endforeach; ?>
+			</ul>
 		</div>
 	</div><!-- #sidebar .span3 -->
 	
 	<div id="page-content" class="span5 well">
-		<h2><?php echo __('Please select a team.'); ?></h2>
+		<h5><?php echo __('Please select a team.'); ?></h5>
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
 											<th><?php echo __('Player'); ?></th>
@@ -38,7 +40,7 @@
 	
 	<div id="page-content" class="span4 well">
 		<div id="userPlayers">
-			<h2><?php echo $userTeams['UserTeam']['name'];?></h2>
+			<h5><?php echo $userTeams['UserTeam']['name'];?></h5>
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
 											<th><?php echo __('Player'); ?></th>

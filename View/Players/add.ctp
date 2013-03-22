@@ -45,8 +45,6 @@
     				'maxYear' => date('Y') - 12,
     				'class' => 'span2',
 					));
-
-		
 		echo "</div>";
 		echo "<div class='control-group'>";
 		echo $this->Form->input('country', array('class' => 'span12'));
