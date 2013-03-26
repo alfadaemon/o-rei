@@ -9,7 +9,7 @@ class SchedulesController extends AppController {
 		$this->set('Tournaments',$this->Tournament->find('list',$options));
 	}
 	
-	public function get_matchdays_by_tournament($tournament_id) {
+	public function get_matchdays_by_tournament() {
 			$this->layout = 'ajax';
 			$options['joins'] = array(
 		    	array('table' => 'team_tournaments',
@@ -42,7 +42,7 @@ class SchedulesController extends AppController {
 			    ),
 			);
 			$options['fields'] = array('Matchday.id','Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.id AS local_team_id' ,'Teams.name AS local_team_name' ,'Teams_two.id AS visit_team_id', 'Teams_two.name AS visit_team_name');
-			$options['conditions'] = array('Matchday.tournament_id'=>$tournament_id);
+			$options['conditions'] = array('Matchday.tournament_id'=>$this->request->data['tournaments']['tournament_id']);
 			$options['order'] = array('Matchday.matchdate');
 			$this->loadModel('Matchday');
 			$this->set('MatchDaysList',$this->Matchday->find('all',$options));		

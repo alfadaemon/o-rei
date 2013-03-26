@@ -33,7 +33,7 @@ $this->Js->event(
     'change',
     $this->Js->request(
         array('controller' => 'schedules','action' => 'get_matchdays_by_tournament',1),
-        array('async' => true, 'update' => '#matchdays','method' => 'GET')
+        array('async' => true, 'update' => '#matchdays','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
     )
 );
 ?>
