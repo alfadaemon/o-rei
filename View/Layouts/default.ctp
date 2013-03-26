@@ -143,7 +143,9 @@
                       'lib/bootstrap.min',
                       'src/scripts.js'
                       ));
-                      ?>
+					  
+					  echo $this->Html->script('lib/jquery-1.4.2.min');
+                  ?>
 
                       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
                       <script>
@@ -153,5 +155,6 @@
                         s.parentNode.insertBefore(g,s)}(document,'script'));*/
                       </script>
                     </body>
+                    <?php echo $this->Js->writeBuffer(); ?>
                     </html>
 <?php echo $this->element('sql_dump'); ?>
