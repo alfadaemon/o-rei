@@ -42,7 +42,7 @@ class SchedulesController extends AppController {
 			    ),
 			);
 			$options['fields'] = array('Matchday.id','Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.id AS local_team_id' ,'Teams.name AS local_team_name' ,'Teams_two.id AS visit_team_id', 'Teams_two.name AS visit_team_name');
-			$options['conditions'] = array('Matchday.tournament_id'=>$this->request->data['tournaments']['tournament_id']);
+			$options['conditions'] = array('Matchday.tournament_id'=>$this->request->data['tournaments']['tournament_id'],'Matchday.matchdate<="'.date("Y-m-d").'"');
 			$options['order'] = array('Matchday.matchdate');
 			$this->loadModel('Matchday');
 			$this->set('MatchDaysList',$this->Matchday->find('all',$options));		
@@ -50,6 +50,45 @@ class SchedulesController extends AppController {
 
 	public function get_players_by_team($matchday,$localteam,$visitteam) {
 		$this->layout = 'ajax';
+		// Matchday information
+		$options['joins'] = array(
+		    	array('table' => 'team_tournaments',
+		        'alias' => 'TeamTournaments',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Matchday.local_team_id = TeamTournaments.id',
+			        )
+			    ),
+			    array('table' => 'teams',
+		        'alias' => 'Teams',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Teams.id = TeamTournaments.team_id',
+			        )
+			    ),
+				array('table' => 'team_tournaments',
+		        'alias' => 'TeamTournaments_two',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Matchday.visit_team_id = TeamTournaments_two.id',
+			        )
+			    ),
+				array('table' => 'teams',
+		        'alias' => 'Teams_two',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Teams_two.id = TeamTournaments_two.team_id',
+			        )
+			    ),
+			);
+			$options['fields'] = array('Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.name' ,'Teams_two.name');
+			$options['conditions'] = array('Matchday.id'=>$matchday);
+			$options['limit']=1;
+			$this->loadModel('Matchday');
+			$this->Matchday->recursive=0;
+			$this->set('MatchDaysInfo',$this->Matchday->find('all',$options));	
+		//		
+		
 		// Local Team Query
 		$options['joins'] = array(
 				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
@@ -93,10 +132,11 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','Teams.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $localteam);
 		$options['order'] = array('Players.id');
 		$this->loadModel('PlayerStatistic');
+		$this->PlayerStatistic->recursive=0;
 		$this->set('LocalTeam',$this->PlayerStatistic->find('all',$options));
 		// End Local Team Query
 		
@@ -143,9 +183,10 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','Teams.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $visitteam);
 		$options['order'] = array('Players.id');
+		$this->PlayerStatistic->recursive=0;
 		$this->set('VisitTeam',$this->PlayerStatistic->find('all',$options));	
 		// End Visit Team Query
 	}

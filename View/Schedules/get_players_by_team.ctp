@@ -1,7 +1,7 @@
 <div class="row-fluid">
 	<div id='header' class="span12">
-		<center><h4>score1 - <?php echo	$LocalTeam[0]['Teams']['name'] ?> VS <?php echo	$VisitTeam[0]['Teams']['name'] ?> - score2</h4></center>
-		<center><p>fecha del partido</p></center>
+		<center><h4><?php echo	$MatchDaysInfo[0]['Matchday']['local_score'].' - '.$MatchDaysInfo[0]['Teams']['name'] ?> VS <?php echo	$MatchDaysInfo[0]['Teams']['name'].' - '.$MatchDaysInfo[0]['Matchday']['visit_score'] ?></h4></center>
+		<center><p><?php echo	$MatchDaysInfo[0]['Matchday']['location'].' - '.$MatchDaysInfo[0]['Matchday']['matchdate'] ?></p></center>
 	</div>
 </div>
 
