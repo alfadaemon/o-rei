@@ -48,7 +48,6 @@ class UsersController extends AppController
 	);
 	
 	$options['fields'] = array('Player.nickname','Player.firstname','Player.flastname','Teams.name','SUM(PlayerStatistics.points) as points');
-
 	$options['conditions'] = array('PlayerRecords.active'=>1);
 	$options['order'] = array('points DESC');
 	$options['group'] = array('Player.id');
