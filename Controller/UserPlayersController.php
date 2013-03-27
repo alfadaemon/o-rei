@@ -14,6 +14,7 @@ class UserPlayersController extends AppController {
  */
 	public function index($userTeamId = 0) {
 		$this->UserPlayer->recursive = 0;
+		//TODO: validate that $userTeamId is a team from the user
 		$conditions = array('user_team_id'=> $userTeamId);
 		$this->paginate = array(
 	        'conditions' => $conditions
@@ -22,8 +23,8 @@ class UserPlayersController extends AppController {
 		$userTeams = $this->UserPlayer->UserTeam->findById($userTeamId);
 		
 		$this->loadModel('TeamTournament');
-		$this->TeamTournament->recursive = -1;
-		$Teams=$this->TeamTournament->findAllByTournamentId($userTeams['Tournament']['id']);
+		$this->TeamTournament->recursive = 0;
+		$Teams=$this->TeamTournament->findAllByTournamentId($userTeams['Tournament']['id'], array('TeamTournament.id', 'Team.name'), array('Team.name ASC'));
 		
 		$this->set(compact('userTeams', 'Teams'));
 	}

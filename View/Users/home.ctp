@@ -12,9 +12,9 @@
 		<hr>
 		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 			<tr>
-				<th><?php echo $this->Paginator->sort('name'); ?></th>
-				<th><?php echo $this->Paginator->sort('team'); ?></th>
-				<th><?php echo $this->Paginator->sort('score'); ?></th>
+				<th><?php echo __('Name');?></th>
+				<th><?php echo __('Team'); ?></th>
+				<th><?php echo __('Score'); ?></th>
 			</tr>
 			<?php
 			 foreach ($topTenPlayers as $player):?>
@@ -31,10 +31,10 @@
 		<hr>
 		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 			<tr>
-				<th><?php echo $this->Paginator->sort('name'); ?></th>
-				<th><?php echo $this->Paginator->sort('team'); ?></th>
-				<th><?php echo $this->Paginator->sort('tournament'); ?></th>
-				<th><?php echo $this->Paginator->sort('score'); ?></th>
+				<th><?php echo __('Name'); ?></th>
+				<th><?php echo __('Team'); ?></th>
+				<th><?php echo __('Tournament'); ?></th>
+				<th><?php echo __('Score'); ?></th>
 			</tr>
 			<?php
 			 foreach ($topTenUsers as $user):?>

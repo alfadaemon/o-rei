@@ -101,9 +101,6 @@ class UsersController extends AppController
 	//End Top 10 Users Query
   }
 
-  
-
-
   public function login() 
   {
     if ($this->request->is('post')) 

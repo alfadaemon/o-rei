@@ -11,10 +11,19 @@
 		<div class="tournaments form">
 			<?php echo $this->Form->create('tournaments'); ?>
 				<fieldset>
-					<h4><?php echo __('Select a Tournament'); ?></h4>
 					<?php
 						echo "<div class='control-group'>";
-						echo $this->Form->input('tournament_id', array('class' => 'span12'));
+						echo $this->Form->input('tournament_id', array('empty'=>true, 'class' => 'span12'));
+						echo "</div>";
+					?>
+				</fieldset>
+			<?php echo $this->Form->end(); ?>
+
+			<?php echo $this->Form->create('team'); ?>
+				<fieldset>
+					<?php
+						echo "<div class='control-group'>";
+						echo $this->Form->input('team_id', array('empty'=>true, 'class' => 'span12'));
 						echo "</div>";
 					?>
 				</fieldset>

@@ -6,7 +6,7 @@
 			<ul class="nav nav-list bs-docs-sidenav">
 				<?php foreach($Teams as $team): ?>
 				<li>
-					<?php echo $this->Html->link($team['TeamTournament']['name'], array('controller' => 'player_records', 'action' => 'add')); ?> 
+					<?php echo $this->Html->link($team['Team']['name'], array('controller' => 'player_records', 'action' => 'add')); ?> 
 				</li>
 				<?php endforeach; ?>
 			</ul>
@@ -31,7 +31,7 @@
 					<?php echo $this->Html->link($userPlayer['Position']['name'], array('controller' => 'positions', 'action' => 'view', $userPlayer['Position']['id'])); ?>
 				</td>
 				<td class="actions">
-					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userPlayer['UserPlayer']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $userPlayer['UserPlayer']['name'])); ?>
+					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userPlayer['UserPlayer']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete %s?', $userPlayer['PlayerRecord']['name'])); ?>
 				</td>
 				</tr>
 				<?php endforeach; ?>
@@ -57,7 +57,7 @@
 				<?php echo $this->Html->link($userPlayer['Position']['name'], array('controller' => 'positions', 'action' => 'view', $userPlayer['Position']['id'])); ?>
 				</td>
 				<td class="actions">
-				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userPlayer['UserPlayer']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $userPlayer['UserPlayer']['name'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userPlayer['UserPlayer']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $userPlayer['PlayerRecord']['name'])); ?>
 				</td>
 				</tr>
 				<?php endforeach; ?>

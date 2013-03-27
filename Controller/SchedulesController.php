@@ -148,9 +148,6 @@ class SchedulesController extends AppController {
 		$options['order'] = array('Players.id');
 		$this->set('VisitTeam',$this->PlayerStatistic->find('all',$options));	
 		// End Visit Team Query
-		
-		
-		
 	}
 
 }
