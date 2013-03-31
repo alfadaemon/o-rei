@@ -1,3 +1,10 @@
+<?php
+if(is_null($MatchDaysInfo[0]['Matchday']['local_score']))
+	$MatchDaysInfo[0]['Matchday']['local_score']=0;
+if(is_null($MatchDaysInfo[0]['Matchday']['visit_score']))
+	$MatchDaysInfo[0]['Matchday']['visit_score']=0;
+
+?>
 <div class="row-fluid">
 	<div id='header' class="span12">
 		<center><h4><?php echo	$MatchDaysInfo[0]['Matchday']['local_score'].' - '.$MatchDaysInfo[0]['Teams']['name'] ?> VS <?php echo	$MatchDaysInfo[0]['Teams']['name'].' - '.$MatchDaysInfo[0]['Matchday']['visit_score'] ?></h4></center>
