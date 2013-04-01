@@ -9,7 +9,14 @@ App::uses('AppModel', 'Model');
  * @property PlayerStatistic $PlayerStatistic
  */
 class Matchday extends AppModel {
-
+	
+/**
+ * Display field
+ *
+ * @var string
+ */
+	public $displayField = 'name';
+	
 /**
  * Validation rules
  *
@@ -94,17 +101,17 @@ class Matchday extends AppModel {
 			'order' => ''
 		),
 		'LocalTeam' => array(
-			'className' => 'Team',
+			'className' => 'TeamTournament',
 			'foreignKey' => 'local_team_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => 'team_id',
 			'order' => ''
 		),
 		'VisitTeam' => array(
-			'className' => 'Team',
+			'className' => 'TeamTournament',
 			'foreignKey' => 'visit_team_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => 'team_id',
 			'order' => ''
 		)
 	);

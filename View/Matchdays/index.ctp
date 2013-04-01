@@ -8,8 +8,8 @@
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li><?php echo $this->Html->link(__('New Matchday'), array('action' => 'add'), array('class' => '')); ?></li>						<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'teams', 'action' => 'add'), array('class' => '')); ?></li> 
+		<li><?php echo $this->Html->link(__('List Team Tournaments'), array('controller' => 'team_tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
+		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'team_tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('List Player Statistics'), array('controller' => 'player_statistics', 'action' => 'index'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('New Player Statistic'), array('controller' => 'player_statistics', 'action' => 'add'), array('class' => '')); ?></li> 
 			</ul><!-- .nav nav-list bs-docs-sidenav -->
@@ -34,6 +34,8 @@
 											<th><?php echo $this->Paginator->sort('location'); ?></th>
 											<th><?php echo $this->Paginator->sort('comment'); ?></th>
 											<th><?php echo $this->Paginator->sort('tournament_id'); ?></th>
+											<th><?php echo $this->Paginator->sort('local_team_id'); ?></th>
+											<th><?php echo $this->Paginator->sort('visit_team_id'); ?></th>
 											<th class="actions"><?php echo __('Actions'); ?></th>
 				</tr>
 				<?php
@@ -49,6 +51,8 @@
 		<td>
 			<?php echo $this->Html->link($matchday['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $matchday['Tournament']['id'])); ?>
 		</td>
+		<td><?php echo h($matchday['Matchday']['local_team_id']); ?>&nbsp;</td>
+		<td><?php echo h($matchday['Matchday']['visit_team_id']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
