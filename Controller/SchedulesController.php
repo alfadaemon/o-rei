@@ -48,7 +48,7 @@ class SchedulesController extends AppController {
 			$this->set('MatchDaysList',$this->Matchday->find('all',$options));		
 	}
 
-	public function get_players_by_team($matchday,$localteam,$visitteam) {
+	public function get_players_by_team($matchday) {
 		$this->layout = 'ajax';
 		// Local Team Query
 		$options['joins'] = array(

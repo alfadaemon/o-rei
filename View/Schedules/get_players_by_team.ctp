@@ -1,7 +1,13 @@
+<?php
+if(is_null($MatchDaysInfo[0]['Matchday']['local_score']))
+	$MatchDaysInfo[0]['Matchday']['local_score']=0;
+if(is_null($MatchDaysInfo[0]['Matchday']['visit_score']))
+	$MatchDaysInfo[0]['Matchday']['visit_score']=0;
+?>
 <div class="row-fluid">
 	<div id='header' class="span12">
-		<center><h4>score1 - <?php echo	$LocalTeam[0]['Teams']['name'] ?> VS <?php echo	$VisitTeam[0]['Teams']['name'] ?> - score2</h4></center>
-		<center><p>fecha del partido</p></center>
+		<center><h4><?php echo	$MatchDaysInfo[0]['Matchday']['local_score'].' - '.$MatchDaysInfo[0]['Teams']['name'] ?> VS <?php echo	$MatchDaysInfo[0]['Teams_two']['name'].' - '.$MatchDaysInfo[0]['Matchday']['visit_score'] ?></h4></center>
+		<center><p><?php echo	$MatchDaysInfo[0]['Matchday']['location'].' - '.$MatchDaysInfo[0]['Matchday']['matchdate'] ?></p></center>
 	</div>
 </div>
 
@@ -21,7 +27,7 @@
 			<tr>
 				<td><div data-toggle="tooltip" title="<?php echo $team['Players']['nickname']; ?>" ><?php echo $team['Players']['nickname'].' '.$team['Players']['flastname'];  ?></div></td>
 				<td><?php echo $team['Positions']['name'] ?></td>
-				<td><?php echo $team['0']['points'] ?></td>
+				<td><?php echo $team[0]['points'] ?></td>
 			</tr>
 			<?php endforeach ?>
 		</tbody>
@@ -41,7 +47,7 @@
 			<tr>
 				<td><div data-toggle="tooltip" title="<?php echo $team['Players']['nickname']; ?>" ><?php echo $team['Players']['nickname'].' '.$team['Players']['flastname'];	 ?></div></td>
 				<td><?php echo $team['Positions']['name'] ?></td>
-				<td><?php echo $team['0']['points'] ?></td>
+				<td><?php echo $team[0]['points'] ?></td>
 			</tr>
 			<?php endforeach ?>
 		</tbody>
