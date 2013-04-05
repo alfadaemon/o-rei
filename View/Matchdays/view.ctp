@@ -12,8 +12,8 @@
 		<li><?php echo $this->Html->link(__('New Matchday'), array('action' => 'add'), array('class' => '')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index'), array('class' => '')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add'), array('class' => '')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index'), array('class' => '')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'teams', 'action' => 'add'), array('class' => '')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Team Tournaments'), array('controller' => 'team_tournaments', 'action' => 'index'), array('class' => '')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'team_tournaments', 'action' => 'add'), array('class' => '')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Player Statistics'), array('controller' => 'player_statistics', 'action' => 'index'), array('class' => '')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Player Statistic'), array('controller' => 'player_statistics', 'action' => 'add'), array('class' => '')); ?> </li>
 				
@@ -33,6 +33,11 @@
 				<tr>		<td><strong><?php echo __('Id'); ?></strong></td>
 		<td>
 			<?php echo h($matchday['Matchday']['id']); ?>
+			&nbsp;
+		</td>
+</tr><tr>		<td><strong><?php echo __('Name'); ?></strong></td>
+		<td>
+			<?php echo h($matchday['Matchday']['name']); ?>
 			&nbsp;
 		</td>
 </tr><tr>		<td><strong><?php echo __('Local Score'); ?></strong></td>

@@ -191,7 +191,7 @@ msgid "Profile"
 msgstr "Perfil"
 
 msgid "New Team"
-msgstr "Nuevo Equipo"
+msgstr "Crear Equipo"
 
 msgid "Team"
 msgstr "Equipo"
@@ -249,3 +249,6 @@ msgstr "Equipos"
 
 msgid "Users"
 msgstr "Usuarios"
+
+msgid "Position"
+msgstr "Posición"

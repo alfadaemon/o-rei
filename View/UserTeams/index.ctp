@@ -1,28 +1,17 @@
 
 <div id="page-container" class="row-fluid">
 
-	<div id="sidebar" class="span2">
+	<div id="sidebar" class="span3">
 		
 		<div class="actions">
-		
-			<ul class="nav nav-list bs-docs-sidenav">
-				<li>
-					<?php echo $this->Html->link(
+			<?php echo $this->Html->link(
 							__('New Team'),
 							'#UserTeamsModal',
 							array(
-								'class'	=> 'btn-remove-modal',
+								'class'	=> 'btn btn-inverse span12',
 								'data-toggle' => 'modal',
-								'role'	=> 'button',
-								'data-user_id' => $user['User']['id'],
-								'data-uname' => $user['User']['username']
 							));
 						?>
-				</li>
-				
-				
-			</ul><!-- .nav nav-list bs-docs-sidenav -->
-			
 		</div><!-- .actions -->
 		
 	</div><!-- #sidebar .span3 -->
@@ -44,7 +33,7 @@
 	<tr>
 		<td><?php echo h($userTeam['UserTeam']['name']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($userTeam['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $userTeam['Tournament']['id'])); ?>
+			<?php echo h($userTeam['Tournament']['name']); ?>
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('controller'=>'UserPlayers', 'action' => 'index', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
