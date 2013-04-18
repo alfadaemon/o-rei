@@ -217,36 +217,36 @@ class MatchdaysController extends AppController {
 		// Matchday information
 		$options['joins'] = array(
 		    	array('table' => 'team_tournaments',
-		        'alias' => 'TeamTournaments',
 		        'type' => 'INNER',
 		        'conditions' => array(
-		            'Matchday.local_team_id = TeamTournaments.id',
+		            'team_tournaments.id = Matchday.local_team_id',
 			        )
 			    ),
 			    array('table' => 'teams',
-		        'alias' => 'Teams',
+		        'alias' => 'local_team',
 		        'type' => 'INNER',
 		        'conditions' => array(
-		            'Teams.id = TeamTournaments.team_id',
+		            'local_team.id = team_tournaments.team_id',
 			        )
 			    ),
 				array('table' => 'team_tournaments',
-		        'alias' => 'TeamTournaments_two',
+		        'alias' => 'team_tournaments_for_visit',
 		        'type' => 'INNER',
 		        'conditions' => array(
-		            'Matchday.visit_team_id = TeamTournaments_two.id',
+		            'team_tournaments_for_visit.id = Matchday.visit_team_id',
 			        )
 			    ),
 				array('table' => 'teams',
-		        'alias' => 'Teams_two',
+		        'alias' => 'visit_team',
 		        'type' => 'INNER',
 		        'conditions' => array(
-		            'Teams_two.id = TeamTournaments_two.team_id',
+		            'visit_team.id = team_tournaments_for_visit.team_id',
 			        )
 			    ),
 			);
-			$options['fields'] = array('Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.id','Teams.name','Teams_two.id' ,'Teams_two.name');
+			$options['fields'] = array('team_tournaments.id','Matchday.id','local_team.id','local_team.name' ,'Matchday.local_score', 'visit_team.id','visit_team.name','Matchday.visit_score','Matchday.matchdate','Matchday.location');
 			$options['conditions'] = array('Matchday.id'=>$matchday);
+			print_r("MatchDay: ".$matchday);
 			$options['limit']=1;
 			$this->loadModel('Matchday');
 			$this->Matchday->recursive=0;
@@ -258,101 +258,29 @@ class MatchdaysController extends AppController {
 		$options['joins'] = array(
 				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
 		    	array('table' => 'player_records',
-		        'alias' => 'PlayerRecords',
-		        'type' => 'INNER',
+		        'type' => 'LEFT',
 		        'conditions' => array(
-		            'PlayerRecords.id = PlayerStatistic.player_record_id',
+		            'player_records.team_tournament_id = TeamTournament.id','player_records.active' => TRUE
 			        )
 			    ),
 			    // INNER JOIN `misuperonce`.`players` ON `players`.`id` = `player_records`.`player_id`
 			    array('table' => 'players',
-		        'alias' => 'Players',
 		        'type' => 'INNER',
 		        'conditions' => array(
-		            'Players.id = PlayerRecords.player_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`team_tournaments` ON `team_tournaments`.`id` = `player_records`.`team_tournament_id`
-			    array('table' => 'team_tournaments',
-		        'alias' => 'TeamTournaments',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'TeamTournaments.id = PlayerRecords.team_tournament_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`teams` ON `teams`.`id` = `team_tournaments`.`team_id`
-				array('table' => 'teams',
-		        'alias' => 'Teams',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'Teams.id = TeamTournaments.team_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`positions` ON `positions`.`id` = `player_records`.`position_id`
-			    array('table' => 'positions',
-		        'alias' => 'Positions',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'Positions.id = PlayerRecords.position_id',
+		            'players.id = player_records.player_id'
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
-		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $mdi[0]['Teams']['id']);
-		$options['order'] = array('Players.id');
-		$this->loadModel('PlayerStatistic');
-		$this->PlayerStatistic->recursive=0;
-		$this->set('LocalTeam',$this->PlayerStatistic->find('all',$options));
+		$options['fields'] = array('player_records.id' , 'player_records.player_id', 'players.firstname','players.flastname', 'player_records.position_id');
+		$options['conditions'] = array('TeamTournament.id'=>$mdi[0]['team_tournaments']['id']);
+		$options['order'] = array('player_records.player_id');
+		$this->loadModel('TeamTournament');
+		//$this->PlayerRecord->recursive=0;
+		$this->set('LocalTeam',$this->TeamTournament->find('all',$options));
 		// End Local Team Query
 		
 		// Visit Team Query
-		$options['joins'] = array(
-				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
-		    	array('table' => 'player_records',
-		        'alias' => 'PlayerRecords',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'PlayerRecords.id = PlayerStatistic.player_record_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`players` ON `players`.`id` = `player_records`.`player_id`
-			    array('table' => 'players',
-		        'alias' => 'Players',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'Players.id = PlayerRecords.player_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`team_tournaments` ON `team_tournaments`.`id` = `player_records`.`team_tournament_id`
-			    array('table' => 'team_tournaments',
-		        'alias' => 'TeamTournaments',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'TeamTournaments.id = PlayerRecords.team_tournament_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`teams` ON `teams`.`id` = `team_tournaments`.`team_id`
-				array('table' => 'teams',
-		        'alias' => 'Teams',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'Teams.id = TeamTournaments.team_id',
-			        )
-			    ),
-			    // INNER JOIN `misuperonce`.`positions` ON `positions`.`id` = `player_records`.`position_id`
-			    array('table' => 'positions',
-		        'alias' => 'Positions',
-		        'type' => 'INNER',
-		        'conditions' => array(
-		            'Positions.id = PlayerRecords.position_id',
-			        )
-			    )
-		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
-		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $mdi[0]['Teams_two']['id']);
-		$options['order'] = array('Players.id');
-		$this->PlayerStatistic->recursive=0;
-		$this->set('VisitTeam',$this->PlayerStatistic->find('all',$options));	
+			
 		// End Visit Team Query
 	}
 }
