@@ -9,8 +9,29 @@ class SchedulesController extends AppController {
 		$this->set('Tournaments',$this->Tournament->find('list',$options));
 	}
 	
-	public function get_matchdays_by_tournament() {
+	public function get_teams_by_tournament(){
 			$this->layout = 'ajax';
+			$options['joins'] = array(
+			    array('table' => 'team_tournaments',
+			    'alias' => 'TeamTournament',
+		        'type' => 'RIGHT',
+		        'conditions' => array('TeamTournament.tournament_id'=>$this->request->data['tournaments']['tournament_id'], 'TeamTournament.active = 1')
+		        
+			    )
+			);
+			$options['fields'] = array('TeamTournament.id','Team.name');
+			$options['conditions'] = array('Team.id = TeamTournament.team_id','Team.active = 1');
+			$this->loadModel('Team');
+			$this->Team->recursive=0;
+			$this->set('Teams',$this->Team->find('list',$options));	
+			$this->set('TournamentId',$this->request->data['tournaments']['tournament_id']);
+	}
+	
+	public function get_matchdays_by_tournament($TournamentId=0) {
+			$this->layout = 'ajax';
+			$condicion="";
+			if($this->request->data['teams']['team_id']!=NULL)
+				$condicion = 'Matchday.local_team_id LIKE '.$this->request->data['teams']['team_id'].' or Matchday.visit_team_id LIKE '.$this->request->data['teams']['team_id']; 
 			$options['joins'] = array(
 		    	array('table' => 'team_tournaments',
 		        'alias' => 'TeamTournaments',
@@ -42,7 +63,7 @@ class SchedulesController extends AppController {
 			    ),
 			);
 			$options['fields'] = array('Matchday.id','Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.id AS local_team_id' ,'Teams.name AS local_team_name' ,'Teams_two.id AS visit_team_id', 'Teams_two.name AS visit_team_name');
-			$options['conditions'] = array('Matchday.tournament_id'=>$this->request->data['tournaments']['tournament_id']);
+			$options['conditions'] = array('Matchday.tournament_id'=>$TournamentId, $condicion );
 			$options['order'] = array('Matchday.matchdate');
 			$this->loadModel('Matchday');
 			$this->set('MatchDaysList',$this->Matchday->find('all',$options));		
@@ -50,6 +71,50 @@ class SchedulesController extends AppController {
 
 	public function get_players_by_team($matchday) {
 		$this->layout = 'ajax';
+		// Matchday information
+		$options['joins'] = array(
+		    	array('table' => 'team_tournaments',
+		        'alias' => 'TeamTournaments',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Matchday.local_team_id = TeamTournaments.id',
+			        )
+			    ),
+			    array('table' => 'teams',
+		        'alias' => 'Teams',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Teams.id = TeamTournaments.team_id',
+			        )
+			    ),
+				array('table' => 'team_tournaments',
+		        'alias' => 'TeamTournaments_two',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Matchday.visit_team_id = TeamTournaments_two.id',
+			        )
+			    ),
+				array('table' => 'teams',
+		        'alias' => 'Teams_two',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'Teams_two.id = TeamTournaments_two.team_id',
+			        )
+			    ),
+			);
+			$options['fields'] = array('Matchday.local_score','Matchday.visit_score','Matchday.matchdate','Matchday.location','Teams.id' ,'Teams.name' ,'Teams_two.id' ,'Teams_two.name');
+			$options['conditions'] = array('Matchday.id'=>$matchday);
+			$options['limit']=1;
+			$this->loadModel('Matchday');
+			$this->Matchday->recursive=0;
+			$mdi = $this->Matchday->find('all',$options);
+			$this->set('MatchDaysInfo',$mdi );	
+			//print_r($mdi);
+			$localteam = $mdi[0]['Teams']['id'];
+			$visitteam = $mdi[0]['Teams_two']['id'];
+		//	
+		
+		
 		// Local Team Query
 		$options['joins'] = array(
 				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
