@@ -113,8 +113,7 @@ class SchedulesController extends AppController {
 			$localteam = $mdi[0]['Teams']['id'];
 			$visitteam = $mdi[0]['Teams_two']['id'];
 		//	
-		
-		
+				
 		// Local Team Query
 		$options['joins'] = array(
 				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
@@ -158,10 +157,11 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','Teams.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $localteam);
 		$options['order'] = array('Players.id');
 		$this->loadModel('PlayerStatistic');
+		$this->PlayerStatistic->recursive=0;
 		$this->set('LocalTeam',$this->PlayerStatistic->find('all',$options));
 		// End Local Team Query
 		
@@ -208,9 +208,10 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','Teams.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $visitteam);
 		$options['order'] = array('Players.id');
+		$this->PlayerStatistic->recursive=0;
 		$this->set('VisitTeam',$this->PlayerStatistic->find('all',$options));	
 		// End Visit Team Query
 	}

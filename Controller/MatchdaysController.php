@@ -199,4 +199,76 @@ class MatchdaysController extends AppController {
 		$this->Session->setFlash(__('Matchday was not deleted'), 'flash/error');
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function set_match_records($matchday)
+	{
+		// Matchday information
+		$options['joins'] = array(
+		    	array('table' => 'team_tournaments',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'team_tournaments.id = Matchday.local_team_id',
+			        )
+			    ),
+			    array('table' => 'teams',
+		        'alias' => 'local_team',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'local_team.id = team_tournaments.team_id',
+			        )
+			    ),
+				array('table' => 'team_tournaments',
+		        'alias' => 'team_tournaments_for_visit',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'team_tournaments_for_visit.id = Matchday.visit_team_id',
+			        )
+			    ),
+				array('table' => 'teams',
+		        'alias' => 'visit_team',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'visit_team.id = team_tournaments_for_visit.team_id',
+			        )
+			    ),
+			);
+			$options['fields'] = array('team_tournaments.id','Matchday.id','local_team.id','local_team.name' ,'Matchday.local_score', 'visit_team.id','visit_team.name','Matchday.visit_score','Matchday.matchdate','Matchday.location');
+			$options['conditions'] = array('Matchday.id'=>$matchday);
+			print_r("MatchDay: ".$matchday);
+			$options['limit']=1;
+			$this->loadModel('Matchday');
+			$this->Matchday->recursive=0;
+			$mdi=$this->Matchday->find('all',$options);
+			$this->set('MatchDaysInfo',$mdi);
+		//	End Matchday information
+		
+		// Local Team Query
+		$options['joins'] = array(
+				//INNER JOIN `misuperonce`.`player_records` ON `player_records`.`id` = `player_statistics`.`player_record_id`
+		    	array('table' => 'player_records',
+		        'type' => 'LEFT',
+		        'conditions' => array(
+		            'player_records.team_tournament_id = TeamTournament.id','player_records.active' => TRUE
+			        )
+			    ),
+			    // INNER JOIN `misuperonce`.`players` ON `players`.`id` = `player_records`.`player_id`
+			    array('table' => 'players',
+		        'type' => 'INNER',
+		        'conditions' => array(
+		            'players.id = player_records.player_id'
+			        )
+			    )
+		);
+		$options['fields'] = array('player_records.id' , 'player_records.player_id', 'players.firstname','players.flastname', 'player_records.position_id');
+		$options['conditions'] = array('TeamTournament.id'=>$mdi[0]['team_tournaments']['id']);
+		$options['order'] = array('player_records.player_id');
+		$this->loadModel('TeamTournament');
+		//$this->PlayerRecord->recursive=0;
+		$this->set('LocalTeam',$this->TeamTournament->find('all',$options));
+		// End Local Team Query
+		
+		// Visit Team Query
+			
+		// End Visit Team Query
+	}
 }

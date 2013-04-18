@@ -3,6 +3,7 @@ if(is_null($MatchDaysInfo[0]['Matchday']['local_score']))
 	$MatchDaysInfo[0]['Matchday']['local_score']=0;
 if(is_null($MatchDaysInfo[0]['Matchday']['visit_score']))
 	$MatchDaysInfo[0]['Matchday']['visit_score']=0;
+
 ?>
 <div class="row-fluid">
 	<div id='header' class="span12">
