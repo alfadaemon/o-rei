@@ -6,7 +6,8 @@ App::uses('AppController', 'Controller');
  * @property Matchday $Matchday
  */
 class MatchdaysController extends AppController {
-
+		public	$helpers = array('Js' => array('Jquery'));
+		public	$components = array('RequestHandler');
 /**
  * index method
  *
@@ -321,9 +322,7 @@ WHERE `team_tournaments`.`id` ='.$mdi[0]['Matchday']['visit_team_id'].' AND `tea
 		
 	}
 
-	public function set_player_statistics($player_record_id,$matchday_id)
+	public function set_player_statistics()
 	{
-		echo $player_record_id;
-		echo $matchday_id;
 	}
 }

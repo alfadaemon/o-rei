@@ -30,27 +30,28 @@
 					<td><?php echo $team['players']['firstname'].' '.$team['players']['flastname'] ?></td>
 					<!--<td><?php echo $team['positions']['name']?></td>-->
 					<td><?php
-					echo $this->Form->create('SetRule'.$team['player_records']['player_id']);
+					echo $this->Form->create();
 					$RulesFilter=null;
 					foreach ($Rules as $rule):
 						if($rule['Rules']['position_id']==$team['player_records']['position_id'])
 							$RulesFilter[$rule['Rules']['id']]=$rule['Rules']['name'];
 					endforeach;
+					echo $this->Form->input( 'player_record_id', array( 'value' => $team['player_records']['player_id'] , 'type' => 'hidden') ); 
+					echo $this->Form->input( 'matchday_id', array( 'value' => $MatchDaysInfo[0]['Matchday']['id']  , 'type' => 'hidden') ); 
 					echo $this->Form->input($team['player_records']['player_id'], array('label'=>false,'options' => $RulesFilter,'empty'=>true, 'class' => 'span6'));
-					echo $this->Form->end('Submit');
-					?>
-					<?php 
-						$this->Js->get('#SetRule'.$team['player_records']['player_id'].'SetMatchRecordsForm');
-						$this->Js->event(
-						    'click',
-						    $this->Js->request(
-						        array('controller' => 'matchdays','action' => 'get_matchdays_by_tournament/'.$team['player_records']['id'].'/'.$MatchDaysInfo[0]['Matchday']['id']),
-						        array('async' => true, 'update' => '#visit_team','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
-						    )
-						);
-						echo $this->Js->writeBuffer(); 
-					?>
-					</td>
+					echo '<button id="Submit'.$team['player_records']['player_id'].'" class="btn" type="submit">Button</button>';
+					echo $this->Form->end();
+										
+					$this->Js->get('#Submit'.$team['player_records']['player_id']);
+					$this->Js->event(
+					    'click',
+					    $this->Js->request(
+					        array('controller' => 'matchdays','action' => 'set_player_statistics'),
+					        array('async' => true, 'update' => '#local_team','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
+					    )
+					);
+					echo $this->Js->writeBuffer(); 
+					?></td>
 					</tr>
 						<?php endforeach; ?>
 				</tbody>
@@ -75,15 +76,27 @@
 					<td><?php echo $team['players']['firstname'].' '.$team['players']['flastname'] ?></td>
 					<!--<td><?php echo $team['positions']['name']?></td>-->
 					<td><?php
-					echo $this->Form->create('SetRule');
+					echo $this->Form->create('Form'.$team['player_records']['player_id']);
 					$RulesFilter=null;
 					foreach ($Rules as $rule):
 						if($rule['Rules']['position_id']==$team['player_records']['position_id'])
 							$RulesFilter[$rule['Rules']['id']]=$rule['Rules']['name'];
 					endforeach;
+					echo $this->Form->input( 'player_record_id', array( 'value' => $team['player_records']['player_id'] , 'type' => 'hidden') ); 
+					echo $this->Form->input( 'matchday_id', array( 'value' => $MatchDaysInfo[0]['Matchday']['id']  , 'type' => 'hidden') ); 
 					echo $this->Form->input($team['player_records']['player_id'], array('label'=>false,'options' => $RulesFilter,'empty'=>true, 'class' => 'span6'));
-					echo $this->Form->submit('Set Rule', array('class' => 'btn'));
+					echo '<button id="Submit'.$team['player_records']['player_id'].'" class="btn" type="submit">Button</button>';
 					echo $this->Form->end();
+										
+					$this->Js->get('#Submit'.$team['player_records']['player_id']);
+					$this->Js->event(
+					    'click',
+					    $this->Js->request(
+					        array('controller' => 'matchdays','action' => 'set_player_statistics'),
+					        array('async' => true, 'update' => '#local_team','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
+					    )
+					);
+					echo $this->Js->writeBuffer(); 
 					?></td>
 					</tr>
 						<?php endforeach; ?>
@@ -91,3 +104,4 @@
 		</table>
 	</div>
 </div>
+<div id='sending' style="display: none;">...</div>
