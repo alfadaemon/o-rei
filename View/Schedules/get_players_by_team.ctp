@@ -26,7 +26,7 @@ if(is_null($MatchDaysInfo[0]['Matchday']['visit_score']))
 		<tbody>
 			<?php foreach ($LocalTeam as $team): ?>
 			<tr>
-				<td><div data-toggle="tooltip" title="<?php echo $team['Players']['nickname']; ?>" ><?php echo $team['Players']['nickname'].' '.$team['Players']['flastname'];  ?></div></td>
+				<td><div><?php echo $team['Players']['firstname'].' '.$team['Players']['flastname'];  ?></div></td>
 				<td><?php echo $team['Positions']['name'] ?></td>
 				<td><?php echo $team[0]['points'] ?></td>
 			</tr>
@@ -46,7 +46,7 @@ if(is_null($MatchDaysInfo[0]['Matchday']['visit_score']))
 		<tbody>
 			<?php foreach ($VisitTeam as $team): ?>
 			<tr>
-				<td><div data-toggle="tooltip" title="<?php echo $team['Players']['nickname']; ?>" ><?php echo $team['Players']['nickname'].' '.$team['Players']['flastname'];	 ?></div></td>
+				<td><div><?php echo $team['Players']['firstname'].' '.$team['Players']['flastname'];	 ?></div></td>
 				<td><?php echo $team['Positions']['name'] ?></td>
 				<td><?php echo $team[0]['points'] ?></td>
 			</tr>

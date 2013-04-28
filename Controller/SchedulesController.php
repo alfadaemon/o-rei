@@ -157,11 +157,13 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $localteam);
 		$options['order'] = array('Players.id');
+		$options['group'] = 'Players.id';
 		$this->loadModel('PlayerStatistic');
 		$this->PlayerStatistic->recursive=0;
+		$options['limit']=null;
 		$this->set('LocalTeam',$this->PlayerStatistic->find('all',$options));
 		// End Local Team Query
 		
@@ -208,9 +210,10 @@ class SchedulesController extends AppController {
 			        )
 			    )
 		);
-		$options['fields'] = array('Players.id','Players.firstname','Players.nickname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
+		$options['fields'] = array('Players.id','Players.firstname','Players.flastname','Positions.name','SUM(PlayerStatistic.points) AS points' );
 		$options['conditions'] = array('PlayerStatistic.matchday_id' => $matchday,'TeamTournaments.team_id' => $visitteam);
 		$options['order'] = array('Players.id');
+		$options['group'] = 'Players.id';
 		$this->PlayerStatistic->recursive=0;
 		$this->set('VisitTeam',$this->PlayerStatistic->find('all',$options));	
 		// End Visit Team Query
