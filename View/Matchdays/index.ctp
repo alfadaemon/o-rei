@@ -8,8 +8,8 @@
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li><?php echo $this->Html->link(__('New Matchday'), array('action' => 'add'), array('class' => '')); ?></li>						<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'teams', 'action' => 'add'), array('class' => '')); ?></li> 
+		<li><?php echo $this->Html->link(__('List Team Tournaments'), array('controller' => 'team_tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
+		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'team_tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('List Player Statistics'), array('controller' => 'player_statistics', 'action' => 'index'), array('class' => '')); ?></li> 
 		<li><?php echo $this->Html->link(__('New Player Statistic'), array('controller' => 'player_statistics', 'action' => 'add'), array('class' => '')); ?></li> 
 			</ul><!-- .nav nav-list bs-docs-sidenav -->
@@ -27,6 +27,7 @@
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
 											<th><?php echo $this->Paginator->sort('id'); ?></th>
+											<th><?php echo $this->Paginator->sort('name'); ?></th>
 											<th><?php echo $this->Paginator->sort('local_score'); ?></th>
 											<th><?php echo $this->Paginator->sort('visit_score'); ?></th>
 											<th><?php echo $this->Paginator->sort('matchdate'); ?></th>
@@ -41,6 +42,7 @@
 				foreach ($matchdays as $matchday): ?>
 	<tr>
 		<td><?php echo h($matchday['Matchday']['id']); ?>&nbsp;</td>
+		<td><?php echo h($matchday['Matchday']['name']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['local_score']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['visit_score']); ?>&nbsp;</td>
 		<td><?php echo h($matchday['Matchday']['matchdate']); ?>&nbsp;</td>

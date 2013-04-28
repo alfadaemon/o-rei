@@ -44,7 +44,7 @@
 		echo $this->Form->input('position_id', array('class' => 'span12'));
 		echo "</div>";
 		echo "<div class='control-group'>";
-		echo $this->Form->input('active', array('class' => 'span12'));
+		echo $this->Form->input('active', array('checked'=>true, 'class' => 'span12'));
 		echo "</div>";
 	?>
 				</fieldset>
