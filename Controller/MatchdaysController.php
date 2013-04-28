@@ -322,7 +322,29 @@ WHERE `team_tournaments`.`id` ='.$mdi[0]['Matchday']['visit_team_id'].' AND `tea
 		
 	}
 
-	public function set_player_statistics()
+	public function set_player_statistics($player_record_id)
 	{
+		if ($this->request->is('post')) {
+			if(!empty($this->request->data))
+			{
+				if(!empty($this->request->data['Form'.$player_record_id]['rule_id']))
+				{
+					print_r($this->request->data['Form'.$player_record_id]);
+					$this->loadModel('Rule');
+					$rule =$this->Rule->findById($this->request->data['Form'.$player_record_id]['rule_id']);					
+					$data = array('player_record_id' => $player_record_id,
+					'matchday_id' => $this->request->data['Form'.$player_record_id]['matchday_id'],
+					'rule_id' => $this->request->data['Form'.$player_record_id]['rule_id'],
+					'points'=> $rule['Rule']['weight']);
+					
+					//If the form data can be validated and saved...
+					$this->loadModel('PlayerStatistic');
+			       	if ($this->PlayerStatistic->save($data)) {
+			            // Set a session flash message and redirect.
+			            $this->Session->setFlash('Record Saved!');
+			        }
+				}
+			}
+	    }
 	}
 }
