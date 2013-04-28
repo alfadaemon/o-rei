@@ -9,7 +9,8 @@
 <div class="row-fluid">
 	<div class="span4 well">
 		<div class="tournaments form">
-			<?php echo $this->Form->create('tournaments'); ?>
+			<?php 
+			echo $this->Form->create('tournaments'); ?>
 				<fieldset>
 					<?php
 						echo "<div class='control-group'>";
@@ -17,13 +18,9 @@
 						echo "</div>";
 					?>
 				</fieldset>
-			<?php echo $this->Form->end(); ?>
-
-			<?php echo $this->Form->create('team'); ?>
 				<fieldset>
 					<?php
-						echo "<div class='control-group'>";
-						echo $this->Form->input('team_id', array('empty'=>true, 'class' => 'span12'));
+						echo "<div id='TeamsFilter' class='control-group'>";
 						echo "</div>";
 					?>
 				</fieldset>
@@ -41,10 +38,8 @@ $this->Js->get('#tournamentsTournamentId');
 $this->Js->event(
     'change',
     $this->Js->request(
-        array('controller' => 'schedules','action' => 'get_matchdays_by_tournament',1),
-        array('async' => true, 'update' => '#matchdays','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
+        array('controller' => 'schedules','action' => 'get_teams_by_tournament'),
+        array('async' => true, 'update' => '#TeamsFilter','method' => 'POST','dataExpression'=>true,'data'=> $this->Js->serializeForm(array('isForm' => true,'inline' => true)))
     )
 );
-?>
-
-
+?>
