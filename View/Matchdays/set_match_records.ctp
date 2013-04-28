@@ -31,14 +31,16 @@ echo $this->Html->script('/js/lib/jquery'); echo	$MatchDaysInfo[0]['Matchday']['
 					<td><?php echo $team['players']['firstname'].' '.$team['players']['flastname'] ?></td>
 					<!--<td><?php echo $team['positions']['name']?></td>-->
 					<td><?php
-					echo $this->Form->create('Form'.$team['player_records']['id'],array('class'=>'form-inline'));
+					echo $this->Form->create('Form'.$team['player_records']['id']);
 					$RulesFilter=null;
 					foreach ($Rules as $rule):
 						if($rule['Rules']['position_id']==$team['player_records']['position_id'])
 							$RulesFilter[$rule['Rules']['id']]=$rule['Rules']['name'];
 					endforeach; 
-					echo $this->Form->input( 'matchday_id', array( 'value' => $MatchDaysInfo[0]['Matchday']['id']  , 'type' => 'hidden') ); 
+					echo $this->Form->input( 'matchday_id', array( 'value' => $MatchDaysInfo[0]['Matchday']['id']  , 'type' => 'hidden') );
+					echo "<div class='span8'>";
 					echo $this->Form->input('rule_id', array('label'=>false,'options' => $RulesFilter,'empty'=>true));
+					echo "</div>";
 					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">Button</button>';
 					echo $this->Form->end();
 										
@@ -82,7 +84,9 @@ echo $this->Html->script('/js/lib/jquery'); echo	$MatchDaysInfo[0]['Matchday']['
 							$RulesFilter[$rule['Rules']['id']]=$rule['Rules']['name'];
 					endforeach; 
 					echo $this->Form->input( 'matchday_id', array( 'value' => $MatchDaysInfo[0]['Matchday']['id']  , 'type' => 'hidden') ); 
+					echo "<div class='span8'>";
 					echo $this->Form->input('rule_id', array('label'=>false,'options' => $RulesFilter,'empty'=>true));
+					echo "</div>";
 					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">Button</button>';
 					echo $this->Form->end();
 										
