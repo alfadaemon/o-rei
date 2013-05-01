@@ -206,4 +206,8 @@ class UserTeamsController extends AppController {
 		$this->Session->setFlash(__('User team was not deleted'), 'flash/error');
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function soccer_field(){
+		
+	}
 }
