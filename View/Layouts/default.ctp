@@ -127,7 +127,7 @@
                   </div> <!-- /container -->
 
                   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-                  <script>window.jQuery || document.write('<script src="<?php echo $this->params->webroot ?>js/lib/jquery.min.js"><\/script>')</script>
+                  <script>window.jQuery || document.write('<script src="<?php echo $this->params->webroot ?>js/lib/jquery.js"><\/script>')</script>
 
                   <?php
                   if (is_file(WWW_ROOT . 'js' . DS . $this->params->controller . '.js')) {
