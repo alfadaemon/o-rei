@@ -117,6 +117,24 @@ class UserPlayersController extends AppController {
 
 
 /**
+ * get_players method
+ * 
+ * @return Players Record from selected team in the actual tournament
+ */
+ 	public function get_players($teamTournament=0){
+ 		$this->layout='ajax';
+ 		if($teamTournament!=0){
+ 			$players = $this->UserPlayer->PlayerRecord->find('all',
+														array(
+															'fields'=>array('PlayerRecord.id', 'PlayerRecord.name', 'Position.name', 'TeamTournament.name'),
+															'conditions'=>array('TeamTournament.id'=>$teamTournament)));
+			$this->set(compact('players'));
+ 		} else {
+ 			$this->Session->setFlash(__('No tournament selected'), 'flash/error');
+ 		}
+ 	}
+
+/**
  * admin_index method
  *
  * @return void
