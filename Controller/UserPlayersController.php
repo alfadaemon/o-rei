@@ -119,19 +119,53 @@ class UserPlayersController extends AppController {
 /**
  * get_players method
  * 
+ * @param integer $teamTournament
  * @return Players Record from selected team in the actual tournament
+ * @return void
  */
- 	public function get_players($teamTournament=0){
+ 	public function get_players($teamTournament=0, $userTeamId){
  		$this->layout='ajax';
  		if($teamTournament!=0){
  			$players = $this->UserPlayer->PlayerRecord->find('all',
 														array(
-															'fields'=>array('PlayerRecord.id', 'PlayerRecord.name', 'Position.name', 'TeamTournament.name'),
+															'fields'=>array('PlayerRecord.id', 'PlayerRecord.name', 'Position.name', 'Position.id', 'TeamTournament.name'),
 															'conditions'=>array('TeamTournament.id'=>$teamTournament)));
-			$this->set(compact('players'));
+			$this->set(compact('players', 'userTeamId'));
  		} else {
  			$this->Session->setFlash(__('No tournament selected'), 'flash/error');
  		}
+ 	}
+	
+/**
+ * add_player method
+ * 
+ * @param integer $userTeamId
+ * @param integer $playerRecordId
+ * @param integer $positionId
+ * @return Players Record from selected team in the actual tournament
+ * @return void
+ */
+ 	public function add_player($userTeamId=0, $playerRecordId=0, $positionId=0){
+ 		$this->layout='ajax';
+ 		if($userTeamId!=0 && $playerRecordId!=0 && $positionId!=0){
+			$this->UserPlayer->create();
+			$data['user_team_id']=$userTeamId;
+			$data['player_record_id']=$playerRecordId;
+			$data['position_id']=$positionId;
+			$data['creation_date'] = date("Y-m-d H:i:s");
+			if($this->UserPlayer->save($data)) {
+				$this->Session->setFlash(__('The user player has been saved'), 'flash/success');
+			} else {
+				$this->Session->setFlash(__('The user player could not be saved. Please, try again.'), 'flash/error');
+			}
+ 		} else {
+ 			$this->Session->setFlash(__('Bad parameters list'), 'flash/error');
+ 		}
+		$userPlayers = $this->UserPlayer->find('all', array(
+												'conditions'=>array('user_team_id'=>$userTeamId)
+												)
+											);
+		$this->set(compact('userPlayers'));
  	}
 
 /**

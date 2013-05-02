@@ -16,7 +16,7 @@
 					$this->Js->event(
     					'click',
     					$this->Js->request(
-        					array('controller' => 'UserPlayers','action' => 'get_players',$team['TeamTournament']['id']),
+        					array('controller' => 'UserPlayers','action' => 'get_players',$team['TeamTournament']['id'], $userTeams['UserTeam']['id']),
         					array('async' => true, 'update' => '#team-players')
     					)
 					);
@@ -30,8 +30,9 @@
 		<?php echo __('Select a Team'); ?>
 	</div>
 	
-	<div id="user-players" class="span5 well">
+	<div id="userplayers" class="span5 well">
 			<h5><?php echo $userTeams['UserTeam']['name'];?></h5>
+			<div id="user-players">
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 				<tr>
 											<th><?php echo __('Player'); ?></th>
@@ -53,6 +54,7 @@
 				</tr>
 				<?php endforeach; ?>
 			</table>
+			</div>
 	</div><!-- #page-content .span9 -->
 
 </div><!-- #page-container .row-fluid -->
