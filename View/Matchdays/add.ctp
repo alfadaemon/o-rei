@@ -28,15 +28,6 @@
 					<h2><?php echo __('Add Matchday'); ?></h2>
 				<?php
 		echo "<div class='control-group'>";
-		echo $this->Form->input('name', array('class' => 'span12'));
-		echo "</div>";
-		echo "<div class='control-group'>";
-		echo $this->Form->input('local_score', array('class' => 'span1'));
-		echo "</div>";
-		echo "<div class='control-group'>";
-		echo $this->Form->input('visit_score', array('class' => 'span1'));
-		echo "</div>";
-		echo "<div class='control-group'>";
 		echo $this->Form->input('matchdate', array('class' => 'span2'));
 		echo "</div>";
 		echo "<div class='control-group'>";
