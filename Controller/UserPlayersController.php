@@ -117,6 +117,86 @@ class UserPlayersController extends AppController {
 
 
 /**
+ * get_players method
+ * 
+ * @param integer $teamTournament
+ * @return Players Record from selected team in the actual tournament
+ * @return void
+ */
+ 	public function get_players($teamTournament=0, $userTeamId){
+ 		$this->layout='ajax';
+ 		if($teamTournament!=0){
+ 			$players = $this->UserPlayer->PlayerRecord->find('all',
+														array(
+															'fields'=>array('PlayerRecord.id', 'PlayerRecord.name', 'Position.name', 'Position.id', 'TeamTournament.name'),
+															'conditions'=>array('TeamTournament.id'=>$teamTournament)));
+			$this->set(compact('players', 'userTeamId'));
+ 		} else {
+ 			$this->Session->setFlash(__('No tournament selected'), 'flash/error');
+ 		}
+ 	}
+	
+/**
+ * add_player method
+ * 
+ * @param integer $userTeamId
+ * @param integer $playerRecordId
+ * @param integer $positionId
+ * @return Players Record from selected team in the actual tournament
+ * @return void
+ */
+ 	public function add_player($userTeamId=0, $playerRecordId=0, $positionId=0){
+ 		$this->layout='ajax';
+ 		if($userTeamId!=0 && $playerRecordId!=0 && $positionId!=0){
+			$this->UserPlayer->create();
+			$data['user_team_id']=$userTeamId;
+			$data['player_record_id']=$playerRecordId;
+			$data['position_id']=$positionId;
+			$data['creation_date'] = date("Y-m-d H:i:s");
+			if($this->UserPlayer->save($data)) {
+				$this->Session->setFlash(__('The user player has been saved'), 'flash/success');
+			} else {
+				$this->Session->setFlash(__('The user player could not be saved. Please, try again.'), 'flash/error');
+			}
+ 		} else {
+ 			$this->Session->setFlash(__('Bad parameters list'), 'flash/error');
+ 		}
+		$userPlayers = $this->UserPlayer->find('all', array(
+												'conditions'=>array('user_team_id'=>$userTeamId)
+												)
+											);
+		$this->set(compact('userPlayers'));
+ 	}
+	
+/**
+ * del_player method
+ * 
+ * @param integer $userPlayerId
+ * @return Players Record from selected team in the actual tournament
+ * @return void
+ */
+ 	public function del_player($userTeamId=null, $id=null){
+ 		$this->layout='ajax';
+		//TODO: Validate that $id is an id for one of the user's player
+		$this->UserPlayer->id = $id;
+		if (!$this->UserPlayer->exists()) {
+			throw new NotFoundException(__('Invalid user player'));
+		}
+		//$this->request->onlyAllow('del_player', 'delete');
+		if ($this->UserPlayer->delete()) {
+			$this->Session->setFlash(__('User player deleted'), 'flash/success');
+		} else {
+			$this->Session->setFlash(__('User player was not deleted'), 'flash/error');
+		}
+		$userPlayers = $this->UserPlayer->find('all', array(
+											'conditions'=>array('user_team_id'=>$userTeamId)
+											)
+										);
+		$this->set(compact('userPlayers'));
+		$this->render('add_player');
+ 	}
+
+/**
  * admin_index method
  *
  * @return void

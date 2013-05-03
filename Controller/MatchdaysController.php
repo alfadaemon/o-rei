@@ -41,11 +41,33 @@ class MatchdaysController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Matchday->create();
-			if ($this->Matchday->save($this->request->data)) {
-				$this->Session->setFlash(__('The matchday has been saved'), 'flash/success');
-				$this->redirect(array('action' => 'index'));
+			$this->request->data['Matchday']['local_score']=0;
+			$this->request->data['Matchday']['visit_score']=0;
+			
+			if($this->request->data['Matchday']['local_team_id']!=$this->request->data['Matchday']['visit_team_id']){
+				$localTeam = $this->Matchday->LocalTeam->find('first', 
+														array(
+															'fields'=>array('Team.name'),
+															'conditions'=> array( 'LocalTeam.id'=>
+																	$this->request->data['Matchday']['local_team_id'])));
+				$visitTeam = $this->Matchday->VisitTeam->find('first', 
+														array(
+															'fields'=>array('Team.name'),
+															'conditions'=> array( 'VisitTeam.id'=>
+															$this->request->data['Matchday']['visit_team_id'])));
+			
+				$teamName = $localTeam['Team']['name'].' vs '.$visitTeam['Team']['name'];
+			
+				$this->request->data['Matchday']['name']=$teamName;
+			
+				if ($this->Matchday->save($this->request->data)) {
+					$this->Session->setFlash(__('The matchday has been saved'), 'flash/success');
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The matchday could not be saved. Please, try again.'), 'flash/error');
+				}
 			} else {
-				$this->Session->setFlash(__('The matchday could not be saved. Please, try again.'), 'flash/error');
+				$this->Session->setFlash(__('The teams must be different.'), 'flash/error');
 			}
 		}
 		$tournaments = $this->Matchday->Tournament->find('list');
