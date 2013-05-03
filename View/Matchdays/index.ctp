@@ -34,8 +34,6 @@
 											<th><?php echo $this->Paginator->sort('location'); ?></th>
 											<th><?php echo $this->Paginator->sort('comment'); ?></th>
 											<th><?php echo $this->Paginator->sort('tournament_id'); ?></th>
-											<th><?php echo $this->Paginator->sort('local_team_id'); ?></th>
-											<th><?php echo $this->Paginator->sort('visit_team_id'); ?></th>
 											<th class="actions"><?php echo __('Actions'); ?></th>
 				</tr>
 				<?php
@@ -51,11 +49,10 @@
 		<td>
 			<?php echo $this->Html->link($matchday['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $matchday['Tournament']['id'])); ?>
 		</td>
-		<td><?php echo h($matchday['Matchday']['local_team_id']); ?>&nbsp;</td>
-		<td><?php echo h($matchday['Matchday']['visit_team_id']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php echo $this->Html->link(__('Statistics'), array('action' => 'set_match_records', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $matchday['Matchday']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $matchday['Matchday']['id'])); ?>
 		</td>
 	</tr>

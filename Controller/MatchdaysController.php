@@ -255,7 +255,11 @@ class MatchdaysController extends AppController {
 			        )
 			    ),
 			);
-			$options['fields'] = array('team_tournaments.id','Matchday.id','Matchday.local_team_id','local_team.name' ,'Matchday.local_score', 'Matchday.visit_team_id','visit_team.name','Matchday.visit_score','Matchday.matchdate','Matchday.location');
+			$options['fields'] = array('team_tournaments.id','Matchday.id',
+										'Matchday.local_team_id','local_team.name' ,
+										'Matchday.local_score', 'Matchday.visit_team_id',
+										'visit_team.name','Matchday.visit_score',
+										'Matchday.matchdate','Matchday.location');
 			$options['conditions'] = array('Matchday.id'=>$matchday);
 			$options['limit']=1;
 			$this->loadModel('Matchday');
@@ -291,13 +295,13 @@ class MatchdaysController extends AppController {
 		$this->set('LocalTeam',$this->TeamTournament->find('all',$options));
 		*/$this->loadModel('TeamTournament');	
 		$this->set('LocalTeam',$this->TeamTournament->query('SELECT `player_records`.`id` , `player_records`.`player_id`, `players`.`firstname`,`players`.`flastname`, `player_records`.`position_id`,`positions`.`name`
-FROM `misuperonce`.`team_tournaments`
-LEFT JOIN `misuperonce`.`player_records`
+FROM `team_tournaments`
+LEFT JOIN `player_records`
 ON `player_records`.`team_tournament_id` = `team_tournaments`.`id` 
 AND `player_records`.`active` = TRUE
-RIGHT JOIN `misuperonce`.`positions`
+RIGHT JOIN `positions`
 ON `positions`.`id` = `player_records`.`position_id`
-INNER JOIN `misuperonce`.`players`
+INNER JOIN `players`
 ON `players`.`id` = `player_records`.`player_id`
 WHERE `team_tournaments`.`id` ='.$mdi[0]['Matchday']['local_team_id'].' AND `team_tournaments`.`active`=TRUE'));
 		// End Local Team Query
@@ -327,13 +331,13 @@ WHERE `team_tournaments`.`id` ='.$mdi[0]['Matchday']['local_team_id'].' AND `tea
 		$this->set('VisitTeam',$this->TeamTournament->find('all',$options)); 
 		*/$this->loadModel('TeamTournament');	
 		$this->set('VisitTeam',$this->TeamTournament->query('SELECT `player_records`.`id` , `player_records`.`player_id`, `players`.`firstname`,`players`.`flastname`, `player_records`.`position_id`,`positions`.`name`
-FROM `misuperonce`.`team_tournaments`
-LEFT JOIN `misuperonce`.`player_records`
+FROM `team_tournaments`
+LEFT JOIN `player_records`
 ON `player_records`.`team_tournament_id` = `team_tournaments`.`id` 
 AND `player_records`.`active` = TRUE
-RIGHT JOIN `misuperonce`.`positions`
+RIGHT JOIN `positions`
 ON `positions`.`id` = `player_records`.`position_id`
-INNER JOIN `misuperonce`.`players`
+INNER JOIN `players`
 ON `players`.`id` = `player_records`.`player_id`
 WHERE `team_tournaments`.`id` ='.$mdi[0]['Matchday']['visit_team_id'].' AND `team_tournaments`.`active`=TRUE'));
 		// End Visit Team Query

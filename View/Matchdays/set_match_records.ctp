@@ -41,7 +41,7 @@ echo $this->Html->script('/js/lib/jquery'); echo	$MatchDaysInfo[0]['Matchday']['
 					echo "<div class='span8'>";
 					echo $this->Form->input('rule_id', array('label'=>false,'options' => $RulesFilter,'empty'=>true));
 					echo "</div>";
-					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">Button</button>';
+					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">'.__("Add").'</button>';
 					echo $this->Form->end();
 										
 					$this->Js->get('#Form'.$team['player_records']['id'].'SetMatchRecordsForm');
@@ -87,7 +87,7 @@ echo $this->Html->script('/js/lib/jquery'); echo	$MatchDaysInfo[0]['Matchday']['
 					echo "<div class='span8'>";
 					echo $this->Form->input('rule_id', array('label'=>false,'options' => $RulesFilter,'empty'=>true));
 					echo "</div>";
-					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">Button</button>';
+					echo '<button id="Submit'.$team['player_records']['id'].'" class="btn" type="submit">'.__("Add").'</button>';
 					echo $this->Form->end();
 										
 					$this->Js->get('#Form'.$team['player_records']['id'].'SetMatchRecordsForm');
