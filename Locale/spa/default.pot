@@ -158,3 +158,18 @@ msgstr "Marcadores"
 msgid "Next Games"
 msgstr "Próximos Juegos"
 
+msgid "Score"
+msgstr "Puntaje"
+
+msgid "Scores"
+msgstr "Puntos"
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "Matchdays"
+msgstr "Jornadas"
+
+
+msgid "Matchday"
+msgstr "Jornada"

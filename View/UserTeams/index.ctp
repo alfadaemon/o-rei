@@ -38,8 +38,10 @@
 				<td></td>
 				<td></td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('controller'=>'UserPlayers', 'action' => 'index', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php
+				//TODO: mostrar los jugadores en la cancha virtual 
+				echo $this->Html->link(__('View'), array('action' => 'ver_en_cancha_virtual', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php echo $this->Html->link(__('Admin'), array('controller'=>'UserPlayers', 'action' => 'index', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini')); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $userTeam['UserTeam']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete %s?', $userTeam['UserTeam']['name'])); ?>
 		</td>
 	</tr>

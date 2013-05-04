@@ -26,11 +26,11 @@
 		</div>
 	</div><!-- #sidebar .span3 -->
 	
-	<div id="team-players" class="span4 well">
+	<div id="team-players" class="span5 well">
 		<?php echo __('Select a Team'); ?>
 	</div>
 	
-	<div id="userplayers" class="span5 well">
+	<div id="userplayers" class="span4 well">
 			<h5><?php echo $userTeams['UserTeam']['name'];?></h5>
 			<div id="user-players">
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered">

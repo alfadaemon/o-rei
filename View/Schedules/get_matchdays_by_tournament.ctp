@@ -7,8 +7,8 @@ if(is_null($MatchDays['Matchday']['visit_score']))
 ?>
 
 <p>
-<button id='<?php echo 'matchday'.$MatchDays['Matchday']['id']; ?>' class="btn btn-block btn-primary" type="button">
-	<?php echo $MatchDays['Matchday']['local_score'].' - '.$MatchDays['Teams']['local_team_name'].' VS '.$MatchDays['Teams_two']['visit_team_name'].' - '.$MatchDays['Matchday']['visit_score'] ; ?>
+<button id='<?php echo 'matchday'.$MatchDays['Matchday']['id']; ?>' class="btn btn-block btn-inverse btn-primary" type="button">
+	<?php echo $MatchDays['Teams']['local_team_name'].' VS '.$MatchDays['Teams_two']['visit_team_name']; ?>
 </button>
 </p>
 <?php	

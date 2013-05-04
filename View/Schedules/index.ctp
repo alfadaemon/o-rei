@@ -26,7 +26,7 @@
 				</fieldset>
 			<?php echo $this->Form->end(); ?>
 		</div>
-		<div id="matchdays" class="row-fluid span11 well">
+		<div id="matchdays" class="row-fluid span11">
 		</div>
 	</div>
 	<div id="element" class="span8 well">

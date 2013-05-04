@@ -60,8 +60,14 @@
                       <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'index' ? 'active' : '';  ?>">
                         <?php echo $this->Html->link(__('Global Scores'),array('controller' => 'schedules','action' => 'index')) ?>
                       </li>
-                      <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'next' ? 'active' : '';  ?>">
+                      <!-- li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'next' ? 'active' : '';  ?>">
                         <?php echo $this->Html->link(__('Next Games'),array('controller' => 'schedules','action' => 'next')) ?>
+                      </li -->
+                      <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'next' ? 'active' : '';  ?>">
+                        <?php echo $this->Html->link(__('Scores'),array('controller' => 'Matchdays','action' => 'index')) ?>
+                      </li>
+                      <li class="<?php echo $this->params->controller == 'schedules' && $this->action == 'next' ? 'active' : '';  ?>">
+                        <?php echo $this->Html->link(__('Admins'),array('controller' => 'Players','action' => 'index')) ?>
                       </li>
                       <?php } ?>
                       <?php if( !AuthComponent::user('id') ) { ?>

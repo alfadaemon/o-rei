@@ -1,24 +1,7 @@
 
 <div id="page-container" class="row-fluid">
 
-	<div id="sidebar" class="span3">
-		
-		<div class="actions">
-		
-			<ul class="nav nav-list bs-docs-sidenav">
-				<li><?php echo $this->Html->link(__('New Matchday'), array('action' => 'add'), array('class' => '')); ?></li>						<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('List Team Tournaments'), array('controller' => 'team_tournaments', 'action' => 'index'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('New Local Team'), array('controller' => 'team_tournaments', 'action' => 'add'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('List Player Statistics'), array('controller' => 'player_statistics', 'action' => 'index'), array('class' => '')); ?></li> 
-		<li><?php echo $this->Html->link(__('New Player Statistic'), array('controller' => 'player_statistics', 'action' => 'add'), array('class' => '')); ?></li> 
-			</ul><!-- .nav nav-list bs-docs-sidenav -->
-			
-		</div><!-- .actions -->
-		
-	</div><!-- #sidebar .span3 -->
-	
-	<div id="page-content" class="span9">
+	<div id="page-content" class="span12">
 
 		<div class="matchdays index">
 		
@@ -50,10 +33,10 @@
 			<?php echo $this->Html->link($matchday['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $matchday['Tournament']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php echo $this->Html->link(__('Statistics'), array('action' => 'set_match_records', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $matchday['Matchday']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $matchday['Matchday']['id'])); ?>
+			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php echo $this->Html->link(__('Scores'), array('action' => 'set_match_records', $matchday['Matchday']['id']), array('class' => 'btn btn-mini')); ?>
+			<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $matchday['Matchday']['id']), array('class' => 'btn btn-mini'), __('Are you sure you want to delete # %s?', $matchday['Matchday']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
