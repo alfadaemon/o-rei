@@ -167,6 +167,34 @@ class UserPlayersController extends AppController {
 											);
 		$this->set(compact('userPlayers'));
  	}
+	
+/**
+ * del_player method
+ * 
+ * @param integer $userPlayerId
+ * @return Players Record from selected team in the actual tournament
+ * @return void
+ */
+ 	public function del_player($userTeamId=null, $id=null){
+ 		$this->layout='ajax';
+		//TODO: Validate that $id is an id for one of the user's player
+		$this->UserPlayer->id = $id;
+		if (!$this->UserPlayer->exists()) {
+			throw new NotFoundException(__('Invalid user player'));
+		}
+		//$this->request->onlyAllow('del_player', 'delete');
+		if ($this->UserPlayer->delete()) {
+			$this->Session->setFlash(__('User player deleted'), 'flash/success');
+		} else {
+			$this->Session->setFlash(__('User player was not deleted'), 'flash/error');
+		}
+		$userPlayers = $this->UserPlayer->find('all', array(
+											'conditions'=>array('user_team_id'=>$userTeamId)
+											)
+										);
+		$this->set(compact('userPlayers'));
+		$this->render('add_player');
+ 	}
 
 /**
  * admin_index method
